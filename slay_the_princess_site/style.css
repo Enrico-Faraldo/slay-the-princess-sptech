@@ -1,0 +1,61 @@
+/*body {
+    display: flex;
+    flex-direction: row;
+}*/
+
+:root {
+    --tamanho-header: 20vh;
+    --tamanho-footer: 20vh;
+    --tamanho-banner: calc(100vh - var(--tamanho-footer));
+
+}
+
+/* .header {
+    width: 100%;
+    height: var(--tamanho-header);
+    background-color: black;
+    justify-self: start;
+    align-self: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}*/
+
+.banner {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image: url(./assets/banner.png);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+
+}
+
+/*.banner .container {
+    height: 50%;
+    width: 30%;
+    background-image: url(./assets/logo.avif);
+    background-size: auto;
+    background-position: center;
+    
+}
+
+.banner .princesa {
+    height: 30%;
+    width: 30%;
+    background-color: white;
+    
+}*/
+
+.banner .teste{
+    height: 30%;
+    width: 30%;
+    position: absolute;
+    background-color: white;
+    left: 100px;
+    top: 250px;
+}
