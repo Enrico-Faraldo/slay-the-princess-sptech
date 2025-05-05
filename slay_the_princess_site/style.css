@@ -1,6 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 
+
+.header{
+    height: 10vh;
+    width: 100vw;
+    background-color: rgb(0, 0, 0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+}
+.agora{
+    font-weight: 800;
+}
+.header .container{
+    height: 10vh;
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    z-index: 1000;
+}
+.header .container .icone{
+    height: 100%;
+    width: 8%;
+    position: absolute;
+    background-image: url(./assets/icone-logo-alt.png);
+    background-size: contain;
+    display: flex;
+}
+.header .container .navbar{
+    height: 100%;
+    width: 30%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+    align-self: flex-end;
+}
+.navbar a{
+    color: white;
+    text-decoration: none;
+}
 
 .banner {
     height: 100vh;
@@ -17,14 +62,26 @@
 
 
 
-.banner .teste{
-    height: 28%;
-    width: 25%;
+.banner .logoA{
+    height: 38%;
+    width: 32%;
     position: absolute;
-    background-image: url(./assets/logo.avif);
-    left: 150px;
-    top: 150px;
+    background-image: url(./assets/logo.png);
+    background-size: cover;
+    left: 280px;
+    top: 223px;
     z-index: 1;
+}
+
+.banner .logoB{
+    height: 32%;
+    width: 28%;
+    position: absolute;
+    background-image: url(./assets/logoB.png);
+    background-size: cover;
+    z-index: 3;
+    left: 340px;
+    bottom: 120px;
 }
 
 .banner .princesa{
@@ -34,23 +91,244 @@
     background-image: url(./assets/princesa.webp);
     right: 0;
     bottom: 0;
-    z-index: 1;
+    z-index: 3;
 }
 
 .banner .balao{
-    height: 17%;
-    width: 15%;
+    height: 27%;
+    width: 20%;
     position: absolute;
-    background-color: white;
-    background-position: center;
+    right: 50px;
+    bottom: 400px;
+    background-image: url(./assets/balao.png);
     background-size: cover;
-    right: 20px;
-    bottom: 500px;
-    border-radius: 15px;
-    font-size: 45px;
-    font-family: Pacifico, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    z-index: 5;
+    
 }
 
+/*Cadastro*/
+
+.banner .containerCadastro{
+    height: 52%;
+    width: 38%;
+    position: fixed;
+    left: 31vw;
+    top: 27vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.containerCadastro .cadastro{
+    height: 10%;
+    width: 40%;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 38px;
+    font-weight: 800;
+
+}
+
+.containerCadastro .usuario{
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.usuario .indicador{
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.usuario input{
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+   
+}
+
+.containerCadastro .e-mail{
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.e-mail .indicador{
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.e-mail input{
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+   
+}
+
+.containerCadastro .senha{
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.senha .indicador{
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.senha input{
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+   
+}
+
+.containerCadastro .senhaConfirmacao{
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.senhaConfirmacao .indicador{
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.senhaConfirmacao input{
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+   
+}
+
+.containerCadastro button{
+    height: 7%;
+    width: 25%;
+    background-color: black;
+    color: white;
+    border-radius: 7px;
+}
+
+
+/*Login*/
+
+.banner .containerLogin{
+    height: 46%;
+    width: 38%;
+    position: fixed;
+    left: 31vw;
+    top: 27vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+
+.containerLogin .login{
+    height: 10%;
+    width: 40%;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 38px;
+    font-weight: 800;
+
+}
+
+.containerLogin .e-mail{
+    height: 15%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.e-mail .indicador{
+    height: 50%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.e-mail input{
+    height: 50%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+   
+}
+
+.containerLogin .senha{
+    height: 15%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.senha .indicador{
+    height: 50%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.senha input{
+    height: 50%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+   
+}
+
+.containerLogin button{
+    height: 7%;
+    width: 25%;
+    background-color: black;
+    color: white;
+    border-radius: 7px;
+}
