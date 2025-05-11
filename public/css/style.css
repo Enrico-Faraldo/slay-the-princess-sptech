@@ -41,7 +41,7 @@ body {
     height: 100%;
     width: 8%;
     position: absolute;
-    background-image: url(./assets/icone-logo-alt.png);
+    background-image: url(../assets/icone-logo-alt.png);
     background-size: contain;
     display: flex;
 }
@@ -68,7 +68,7 @@ body {
     position: relative;
     top: 0;
     left: 0;
-    background-image: url(./assets/banner.png);
+    background-image: url(../assets/banner.png);
     background-size: cover;
     background-position: center;
     z-index: 0;
@@ -81,7 +81,7 @@ body {
     height: 38%;
     width: 32%;
     position: absolute;
-    background-image: url(./assets/logo.png);
+    background-image: url(../assets/logo.png);
     background-size: cover;
     left: 280px;
     top: 223px;
@@ -92,7 +92,7 @@ body {
     height: 32%;
     width: 28%;
     position: absolute;
-    background-image: url(./assets/logoB.png);
+    background-image: url(../assets/logoB.png);
     background-size: cover;
     z-index: 3;
     left: 340px;
@@ -103,7 +103,7 @@ body {
     height: 60%;
     width: 50%;
     position: absolute;
-    background-image: url(./assets/princesa.webp);
+    background-image: url(../assets/princesa.webp);
     right: 0;
     bottom: 0;
     z-index: 3;
@@ -115,7 +115,7 @@ body {
     position: absolute;
     right: 50px;
     bottom: 400px;
-    background-image: url(./assets/balao.png);
+    background-image: url(../assets/balao.png);
     background-size: cover;
     z-index: 5;
 
