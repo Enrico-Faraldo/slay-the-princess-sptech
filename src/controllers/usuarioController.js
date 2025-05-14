@@ -10,7 +10,7 @@ function autenticar(req, res) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, senha)
+        usuarioModel.autenticar(email, nome_usuario ,senha)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -47,6 +47,7 @@ function cadastrar(req, res) {
     var nome_usuario = req.body.nome_usuarioServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
+    var personagem_favorito = req.body.personagem_favoritoServer;
 
     // Faça as validações dos valores
     if (nome_usuario == undefined) {
@@ -58,21 +59,29 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome_usuario, email, senha)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
+        usuarioModel.verificarExistencia(email, nome_usuario)
+            .then(resultado => {
+                if (resultado.length > 0) {
+                    res.status(409).send("E-mail ou nome de usuário já existe!");
+                } else {
+                    
+                    usuarioModel.cadastrar(nome_usuario, email, senha, personagem_favorito)
+                    .then(
+                        function (resultado) {
+                            res.json(resultado);
+                        }
+                    ).catch(
+                        function (erro) {
+                            console.log(erro);
+                            console.log(
+                                "\nHouve um erro ao realizar o cadastro! Erro: ",
+                                erro.sqlMessage
+                            );
+                            res.status(500).json(erro.sqlMessage);
+                        }
                     );
-                    res.status(500).json(erro.sqlMessage);
                 }
-            );
+            });
     }
 }
 
