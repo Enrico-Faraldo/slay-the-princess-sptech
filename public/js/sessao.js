@@ -18,7 +18,7 @@ function limparSessao() {
 }
 
 // carregamento (loading)
-function aguardar() {
+/*function aguardar() {
     var divAguardar = document.getElementById("div_aguardar");
     divAguardar.style.display = "flex";
 }
@@ -32,5 +32,5 @@ function finalizarAguardar(texto) {
         divErrosLogin.style.display = "flex";
         divErrosLogin.innerHTML = texto;
     }
-}
+}*/
 
