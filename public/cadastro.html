@@ -46,6 +46,10 @@
                 <div class="indicador">E-mail:</div>
                 <input type="text" id="ipt_email">
             </div>
+            <div class="personagemFavorito">
+                <div class="indicador">Personagem de Slay the Princess favorito:</div>
+                <input type="text" id="ipt_personagem_favorito">
+            </div>
             <div class="senha">
                 <div class="indicador">Senha:</div>
                 <input type="password" id="ipt_senha">
@@ -72,17 +76,25 @@
     var emailVar = ipt_email.value;
     var senhaVar = ipt_senha.value;
     var confirmacaoSenhaVar = ipt_senha_confirmacao.value;
+    var personagem_favoritoVar = ipt_personagem_favorito.value;
 
     // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == ""
+      confirmacaoSenhaVar == "" ||
+      personagem_favoritoVar == ""
     ) {
       alert('Campos vazios')
 
       //finalizarAguardar();
+      return false;
+    }
+
+    else if (senhaVar != confirmacaoSenhaVar){
+      alert('Senhas não idênticas')
+
       return false;
     }
 
@@ -97,7 +109,8 @@
         // Agora vá para o arquivo routes/usuario.js
         nome_usuarioServer: nomeVar,
         emailServer: emailVar,
-        senhaServer: senhaVar
+        senhaServer: senhaVar,
+        personagem_favoritoServer: personagem_favoritoVar
       }),
     })
       .then(function (resposta) {

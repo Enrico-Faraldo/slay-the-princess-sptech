@@ -172,7 +172,7 @@ body {
 /*Cadastro*/
 
 .banner .containerCadastro {
-    height: 52%;
+    height: 62%;
     width: 38%;
     position: fixed;
     left: 31vw;
@@ -292,6 +292,31 @@ body {
 }
 
 .senhaConfirmacao input {
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+
+}
+
+.containerCadastro .personagemFavorito {
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.personagemFavorito .indicador {
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.personagemFavorito input {
     height: 60%;
     width: 100%;
     border-radius: 7px;
