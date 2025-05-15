@@ -10,7 +10,7 @@ function autenticar(req, res) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, nome_usuario ,senha)
+        usuarioModel.autenticar(email, senha)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -59,7 +59,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.verificarExistencia(email, nome_usuario)
+        usuarioModel.verificarSeUsuarioExiste(email, nome_usuario)
             .then(resultado => {
                 if (resultado.length > 0) {
                     res.status(409).send("E-mail ou nome de usuário já existe!");
