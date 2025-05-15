@@ -6,7 +6,7 @@ id int primary key auto_increment,
 nome_usuario varchar(50), 
 email varchar(255), 
 senha varchar(255),
-personagem_favorito varchar(75),
+personagem_favorito varchar(20),
 unique (email),
 unique (nome_usuario)
 );

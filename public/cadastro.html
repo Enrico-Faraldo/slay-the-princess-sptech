@@ -46,17 +46,23 @@
                 <div class="indicador">E-mail:</div>
                 <input type="text" id="ipt_email">
             </div>
-            <div class="personagemFavorito">
-                <div class="indicador">Personagem de Slay the Princess favorito:</div>
-                <input type="text" id="ipt_personagem_favorito">
-            </div>
             <div class="senha">
-                <div class="indicador">Senha:</div>
-                <input type="password" id="ipt_senha">
+              <div class="indicador">Senha:</div>
+              <input type="password" id="ipt_senha">
             </div>
             <div class="senhaConfirmacao">
-                <div class="indicador">Confirme sua senha:</div>
-                <input type="password" id="ipt_senha_confirmacao">
+              <div class="indicador">Confirme sua senha:</div>
+              <input type="password" id="ipt_senha_confirmacao">
+            </div>
+            <div class="personagemFavorito">
+                <div class="indicador">Personagem de Slay the Princess favorito:</div>
+                <select name="personagemFavorito" id="ipt_personagem_favorito" required>
+                  <option value="" disabled selected hidden>Selecione uma opção</option>
+                  <option value="princesa">Princesa</option>
+                  <option value="narrador">Narrador</option>
+                  <option value="protagonista">Protagonista</option>
+                  <option value="heroi">Voz do herói</option>
+                </select>
             </div>
             <button onclick="cadastrar()">Registrar</button>
         </div>

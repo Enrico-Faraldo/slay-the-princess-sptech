@@ -316,11 +316,12 @@ body {
     font-weight: 600;
 }
 
-.personagemFavorito input {
+.personagemFavorito select {
     height: 60%;
     width: 100%;
     border-radius: 7px;
     border: solid black;
+    background-color: white;
 
 }
 
