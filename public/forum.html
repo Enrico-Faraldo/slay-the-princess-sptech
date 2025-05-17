@@ -42,7 +42,168 @@
             <button>Comentar</button>
         </div>
     </div>
-    
+
+    <div class="grafico_personagem">
+        <canvas id="personagem"></canvas>
+    </div>
+
 </body>
 
 </html>
+<script>
+    window.onload(obterDadosGrafico())
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDadosGrafico() {
+
+        fetch(`/medidas/buscarMedidaNarrador`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta1) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta1)}`);
+                    resposta1.reverse();
+
+                    let narradorMedidas = resposta1
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+
+        fetch(`/medidas/buscarMedidaPrincesa`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta2) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta2)}`);
+                    resposta2.reverse();
+
+                    let princesaMedidas = resposta2
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+
+        fetch(`/medidas/buscarMedidaProtagonista`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta3) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta3)}`);
+                    resposta3.reverse();
+
+                    let protagonistaMedidas = resposta3
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+
+        fetch(`/medidas/buscarMedidaHeroi`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta4) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta4)}`);
+                    resposta4.reverse();
+
+                    let heroiMedidas = resposta4
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+
+            plotarGrafico(narradorMedidas, princesaMedidas, protagonistaMedidas, heroiMedidas)
+        })
+
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta1, resposta2, resposta3, resposta4) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ['narrador', 'princesa', 'protagonista', 'heroi'];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'narrador',
+                data: [resposta1],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            },
+            {
+                label: 'princesa',
+                data: [resposta2],
+                fill: false,
+                borderColor: 'rgb(199, 52, 52)',
+                tension: 0.1
+            },
+            {
+                label: 'protagonista',
+                data: [resposta3],
+                fill: false,
+                borderColor: 'rgb(22, 52, 187)',
+                tension: 0.1
+            },
+            {
+                label: 'heroi',
+                data: [resposta4],
+                fill: false,
+                borderColor: 'rgb(154, 48, 187)',
+                tension: 0.1
+            }]
+        };
+
+        /*console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')*/
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'pie',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`personagem`),
+            config
+        );
+
+        return myChart;
+        //setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+    }
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    
+</script>

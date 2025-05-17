@@ -1,14 +1,61 @@
 var medidaModel = require("../models/medidaModel");
 
-function buscarUltimasMedidas(req, res) {
+function buscarMedidaNarrador(res) {
 
-    const limite_linhas = 7;
+    console.log(`Recuperando as medidas do narrador`);
 
-    var idAquario = req.params.idAquario;
+    medidaModel.buscarMedidaNarrador().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
-    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+function buscarMedidaPrincesa(res) {
 
-    medidaModel.buscarUltimasMedidas(idAquario, limite_linhas).then(function (resultado) {
+    console.log(`Recuperando as medidas da princesa`);
+
+    medidaModel.buscarMedidaPrincesa().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarMedidaProtagonista(res) {
+
+    console.log(`Recuperando as medidas do protagonista`);
+
+    medidaModel.buscarMedidaProtagonista().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarMedidaHeroi(res) {
+
+    console.log(`Recuperando as medidas do heroi`);
+
+    medidaModel.buscarMedidaHeroi().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -42,7 +89,10 @@ function buscarMedidasEmTempoReal(req, res) {
 }
 
 module.exports = {
-    buscarUltimasMedidas,
+    buscarMedidaNarrador,
+    buscarMedidaPrincesa,
+    buscarMedidaProtagonista,
+    buscarMedidaHeroi,
     buscarMedidasEmTempoReal
 
 }
