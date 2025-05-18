@@ -106,7 +106,6 @@ body {
 .grafico_personagem{
     height: 40vh;
     width: 20vw;
-    background-color: black;
     position: fixed;
     right: 69px;
     top: 175px;

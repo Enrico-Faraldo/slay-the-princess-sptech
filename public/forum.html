@@ -7,6 +7,8 @@
     <title>Slay the Princess Fanpage</title>
     <link rel="stylesheet" href="./css/style_forum.css">
     <link rel="icon" href="./assets/icone.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 </head>
 
@@ -51,7 +53,8 @@
 
 </html>
 <script>
-    window.onload(obterDadosGrafico())
+    window.onload = obterDadosGrafico
+
 
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
@@ -66,64 +69,18 @@
     //     Para ajustar o "select", ajuste o comando sql em src/models
     function obterDadosGrafico() {
 
-        fetch(`/medidas/buscarMedidaNarrador`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/buscarMedidasPersonagens`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
-                response.json().then(function (resposta1) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta1)}`);
-                    resposta1.reverse();
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                    let narradorMedidas = resposta1
+                    plotarGrafico(resposta);
 
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
             }
         })
-
-        fetch(`/medidas/buscarMedidaPrincesa`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta2) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta2)}`);
-                    resposta2.reverse();
-
-                    let princesaMedidas = resposta2
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-
-        fetch(`/medidas/buscarMedidaProtagonista`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta3) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta3)}`);
-                    resposta3.reverse();
-
-                    let protagonistaMedidas = resposta3
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-
-        fetch(`/medidas/buscarMedidaHeroi`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta4) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta4)}`);
-                    resposta4.reverse();
-
-                    let heroiMedidas = resposta4
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-
-            plotarGrafico(narradorMedidas, princesaMedidas, protagonistaMedidas, heroiMedidas)
-        })
-
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
@@ -132,56 +89,47 @@
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta1, resposta2, resposta3, resposta4) {
+    function plotarGrafico(resposta) {
+
 
         console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - labels
+
         let labels = ['narrador', 'princesa', 'protagonista', 'heroi'];
 
-        // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'narrador',
-                data: [resposta1],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            },
-            {
-                label: 'princesa',
-                data: [resposta2],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
-                tension: 0.1
-            },
-            {
-                label: 'protagonista',
-                data: [resposta3],
-                fill: false,
-                borderColor: 'rgb(22, 52, 187)',
-                tension: 0.1
-            },
-            {
-                label: 'heroi',
-                data: [resposta4],
-                fill: false,
-                borderColor: 'rgb(154, 48, 187)',
-                tension: 0.1
+                label: 'Qual é o personagem favorito de Slay the Princess',
+                data: [resposta[0].narrador, resposta[0].princesa, resposta[0].protagonista, resposta[0].heroi],
+                backgroundColor: [
+                    'rgb(75, 192, 192)',    
+                    'rgb(199, 52, 52)',     
+                    'rgb(22, 52, 187)',     
+                    'rgb(154, 48, 187)'     
+                ],
             }]
         };
 
-        /*console.log('----------------------------------------------')
+        console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        /*for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.umidade);
+            dados.datasets[1].data.push(registro.temperatura);
+        }*/
+
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
         console.log(labels)
         console.log('Dados:')
         console.log(dados.datasets)
-        console.log('----------------------------------------------')*/
+        console.log('----------------------------------------------')
 
         // Criando estrutura para plotar gráfico - config
         const config = {
@@ -195,8 +143,7 @@
             config
         );
 
-        return myChart;
-        //setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+        setTimeout(() => atualizarGrafico(dados, myChart), 10000);
     }
 
 
@@ -205,5 +152,41 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    
+    function atualizarGrafico(dados, myChart) {
+
+
+
+        fetch(`/medidas/buscarMedidasPersonagens`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    // alertar(novoRegistro, );
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+                    myChart.data.datasets[0].data = [
+                        novoRegistro[0].narrador,
+                        novoRegistro[0].princesa,
+                        novoRegistro[0].protagonista,
+                        novoRegistro[0].heroi
+                    ];
+                    myChart.update();
+
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(dados, myChart), 10000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(dados, myChart), 10000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
 </script>
