@@ -125,6 +125,7 @@
     let certas = 0
     let erradas = 0
     let quantidadeDeQuestoes = listaDeQuestoes.length
+    let respostaAnteriorCerta = null
     // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
 
     function onloadEsconder() {
@@ -135,6 +136,99 @@
         document.getElementById('btnTentarNovamente').style.display = "none"
     }
 
+    function trocarBalao(situacao) {
+        let pergunta = document.getElementById('pergunta');
+
+        if (situacao == 'questao01') {
+
+            pergunta.classList.remove('preparado');
+            pergunta.classList.add('questao01');
+        }
+
+        else if (situacao == 'questao02 anterior certa') {
+            pergunta.classList.remove('resposta_certa');
+            pergunta.classList.add('questao02');
+        }
+
+        else if (situacao == 'questao02 anterior errada') {
+            pergunta.classList.remove('resposta_errada');
+            pergunta.classList.add('questao02');
+        }
+
+        else if (situacao == 'questao03 anterior certa') {
+            pergunta.classList.remove('resposta_certa');
+            pergunta.classList.add('questao03');
+        }
+
+        else if (situacao == 'questao03 anterior errada') {
+            pergunta.classList.remove('resposta_errada');
+            pergunta.classList.add('questao03');
+        }
+
+        else if (situacao == 'parabens anterior certa') {
+            pergunta.classList.remove('resposta_certa');
+            pergunta.classList.add('parabens');
+        }
+
+        else if (situacao == 'parabens anterior errada') {
+            pergunta.classList.remove('resposta_errada');
+            pergunta.classList.add('parabens');
+        }
+
+        else if (situacao == 'mais sorte anterior certa') {
+            pergunta.classList.remove('resposta_certa');
+            pergunta.classList.add('mais_sorte');
+        }
+
+        else if (situacao == 'mais sorte anterior errada') {
+            pergunta.classList.remove('resposta_errada');
+            pergunta.classList.add('mais_sorte');
+        }
+
+        else if (situacao == 'resposta errada 1') {
+            pergunta.classList.remove('questao01');
+            pergunta.classList.add('resposta_errada');
+        }
+
+        else if (situacao == 'resposta certa 1') {
+            pergunta.classList.remove('questao01');
+            pergunta.classList.add('resposta_certa');
+        }
+
+        else if (situacao == 'resposta errada 2') {
+            pergunta.classList.remove('questao02');
+            pergunta.classList.add('resposta_errada');
+        }
+
+        else if (situacao == 'resposta certa 2') {
+            pergunta.classList.remove('questao02');
+            pergunta.classList.add('resposta_certa');
+        }
+
+        else if (situacao == 'resposta errada 3') {
+            pergunta.classList.remove('questao03');
+            pergunta.classList.add('resposta_errada');
+        }
+
+        else if (situacao == 'resposta certa 3') {
+            pergunta.classList.remove('questao03');
+            pergunta.classList.add('resposta_certa');
+        }
+    }
+
+    function trocarPrincesa(situacao){
+        let princesa = document.getElementById('princesa');
+
+        if (situacao == 'resposta anterior errada') {
+            pergunta.classList.remove('questao03');
+            pergunta.classList.add('resposta_errada');
+        }
+
+        else if (situacao == 'resposta anterior certa') {
+            pergunta.classList.remove('');
+            pergunta.classList.add('resposta_certa');
+        }
+    }
 
     function iniciarQuiz() {
         document.getElementById('questao_atual').style.display = "flex"
@@ -153,9 +247,7 @@
         // btnConcluir.disabled = true
         btnTentarNovamente.disabled = true
 
-        let pergunta = document.getElementById('pergunta');
-        pergunta.classList.remove('preparado');
-        pergunta.classList.add('questao01');
+        trocarBalao('questao01')
     }
 
     function preencherHTMLcomQuestaoAtual(index) {
@@ -210,6 +302,22 @@
 
         desmarcarRadioButtons()
 
+        if (numeroDaQuestaoAtual == 1 && respostaAnteriorCerta) {
+            trocarBalao('questao02 anterior certa')
+        }
+
+        else if (numeroDaQuestaoAtual == 2 && respostaAnteriorCerta) {
+            trocarBalao('questao03 anterior certa')
+        }
+
+        if (numeroDaQuestaoAtual == 1 && !respostaAnteriorCerta) {
+            trocarBalao('questao02 anterior errada')
+        }
+
+        else if (numeroDaQuestaoAtual == 2 && !respostaAnteriorCerta) {
+            trocarBalao('questao03 anterior errada')
+        }
+
         if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
         } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
@@ -249,6 +357,19 @@
                 certas++
                 document.getElementById("spanCertas").innerHTML = certas
                 numeroDaQuestaoAtual++
+                respostaAnteriorCerta = true
+
+                if (numeroDaQuestaoAtual == 1) {
+                    trocarBalao('resposta certa 1')
+                }
+
+                else if (numeroDaQuestaoAtual == 2) {
+                    trocarBalao('resposta certa 2')
+                }
+
+                else if (numeroDaQuestaoAtual == 3) {
+                    trocarBalao('resposta certa 3')
+                }
             } else if (option.checked && option.value !== respostaQuestaoAtual) {
                 const wrongLabelId = option.labels[0].id
 
@@ -258,6 +379,19 @@
                 erradas++
                 document.getElementById("spanErradas").innerHTML = erradas
                 numeroDaQuestaoAtual++
+                respostaAnteriorCerta = false
+
+                if (numeroDaQuestaoAtual == 1) {
+                    trocarBalao('resposta errada 1')
+                }
+
+                else if (numeroDaQuestaoAtual == 2) {
+                    trocarBalao('resposta errada 2')
+                }
+
+                else if (numeroDaQuestaoAtual == 3) {
+                    trocarBalao('resposta errada 3')
+                }
             }
         })
     }
@@ -293,6 +427,22 @@
         else if (porcentagemFinalDeAcertos >= 0.9) {
             textoParaMensagemFinal = "Uau, parabéns!"
             classComCoresParaMensagemFinal = "text-success-with-bg"
+        }
+
+        if (porcentagemFinalDeAcertos <= 0.3 && respostaAnteriorCerta){
+            trocarBalao('mais sorte anterior certa')
+        }
+
+        else if (porcentagemFinalDeAcertos <= 0.3 && !respostaAnteriorCerta){
+            trocarBalao('mais sorte anterior errada')
+        }
+
+        else if (porcentagemFinalDeAcertos > 0.3 && respostaAnteriorCerta){
+            trocarBalao('parabens anterior certa')
+        }
+
+        else if (porcentagemFinalDeAcertos > 0.3 && !respostaAnteriorCerta){
+            trocarBalao('parabens anterior errada')
         }
 
         textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões."

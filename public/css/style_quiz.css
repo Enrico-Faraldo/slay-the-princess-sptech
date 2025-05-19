@@ -148,6 +148,16 @@ body {
     z-index: 3;
 }
 
+.banner .princesa_triste {
+    height: 60%;
+    width: 50%;
+    position: absolute;
+    background-image: url(../assets/princesa_triste.webp);
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+}
+
 .banner .pergunta {
     height: 27%;
     width: 20%;
@@ -165,6 +175,30 @@ body {
 
 .banner .questao01 {
     background-image: url(../assets/questao01.png);
+}
+
+.banner .questao02 {
+    background-image: url(../assets/questao02.png);
+}
+
+.banner .questao03 {
+    background-image: url(../assets/questao03.png);
+}
+
+.banner .parabens {
+    background-image: url(../assets/parabens.png);
+}
+
+.banner .mais_sorte {
+    background-image: url(../assets/mais_sorte.png);
+}
+
+.banner .resposta_errada {
+    background-image: url(../assets/resposta_errada.png);
+}
+
+.banner .resposta_certa {
+    background-image: url(../assets/resposta_certa.png);
 }
 
 .resposta .botoes {
