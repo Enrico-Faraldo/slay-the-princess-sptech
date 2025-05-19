@@ -128,12 +128,12 @@ body {
     align-items: center;
 }
 
-.resposta .questao_atual{
+.resposta .questao_atual {
     color: white;
 
 }
 
-.resposta .opcoes{
+.resposta .opcoes {
     display: flex;
     flex-direction: column;
 }
@@ -154,8 +154,25 @@ body {
     position: absolute;
     right: 600px;
     bottom: 400px;
-    background-image: url(../assets/preparado.png);
     background-size: cover;
     z-index: 5;
 
+}
+
+.banner .preparado {
+    background-image: url(../assets/preparado.png);
+}
+
+.banner .questao01 {
+    background-image: url(../assets/questao01.png);
+}
+
+.resposta .botoes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.opcoes label {
+    color: white;
 }
