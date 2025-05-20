@@ -23,12 +23,15 @@
                     <a href="forum.html">Fórum</a>
                 </li>
                 <li>
+                    <a href="#" class="agora">Quiz</a>
+                </li>
+                <li>
                     <a>|</a>
                 </li>
                 <li>
                     <a href="login.html">Login</a>
                 </li>
-                <li class="agora">
+                <li>
                     <a href="#">Cadastro</a>
                 </li>
             </ul>
@@ -126,6 +129,9 @@
     let erradas = 0
     let quantidadeDeQuestoes = listaDeQuestoes.length
     let respostaAnteriorCerta = null
+    let questao01Var = 0
+    let questao02Var = 0
+    let questao03Var = 0
     // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
 
     function onloadEsconder() {
@@ -219,14 +225,14 @@
     function trocarPrincesa(situacao){
         let princesa = document.getElementById('princesa');
 
-        if (situacao == 'resposta anterior errada') {
-            pergunta.classList.remove('questao03');
-            pergunta.classList.add('resposta_errada');
+        if (situacao == 'resposta certa') {
+            princesa.classList.remove('princesa_triste');
+            princesa.classList.add('princesa');
         }
 
-        else if (situacao == 'resposta anterior certa') {
-            pergunta.classList.remove('');
-            pergunta.classList.add('resposta_certa');
+        else if (situacao == 'resposta errada') {
+            princesa.classList.remove('princesa');
+            princesa.classList.add('princesa_triste');
         }
     }
 
@@ -359,16 +365,21 @@
                 numeroDaQuestaoAtual++
                 respostaAnteriorCerta = true
 
+                trocarPrincesa('resposta certa')
+
                 if (numeroDaQuestaoAtual == 1) {
                     trocarBalao('resposta certa 1')
+                    questao01Var = 1
                 }
 
                 else if (numeroDaQuestaoAtual == 2) {
                     trocarBalao('resposta certa 2')
+                    questao02Var = 1
                 }
 
                 else if (numeroDaQuestaoAtual == 3) {
                     trocarBalao('resposta certa 3')
+                    questao03Var = 1
                 }
             } else if (option.checked && option.value !== respostaQuestaoAtual) {
                 const wrongLabelId = option.labels[0].id
@@ -380,6 +391,8 @@
                 document.getElementById("spanErradas").innerHTML = erradas
                 numeroDaQuestaoAtual++
                 respostaAnteriorCerta = false
+
+                trocarPrincesa('resposta errada')
 
                 if (numeroDaQuestaoAtual == 1) {
                     trocarBalao('resposta errada 1')
@@ -458,6 +471,34 @@
         btnSubmeter.disabled = true
         // btnConcluir.disabled = true
         btnTentarNovamente.disabled = false
+
+        fetch("/quiz/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        questao01: questao01Var,
+        questao02: questao02Var,
+        questao03: questao03Var,
+        idUsuario: sessionStorage.ID_USUARIO
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          
+        } else {
+          throw "Houve um erro ao tentar inserir as respostas do quiz!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        //finalizarAguardar();
+      });
 
     }
 </script>
