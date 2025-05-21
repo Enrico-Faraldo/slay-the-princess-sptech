@@ -222,7 +222,7 @@
         }
     }
 
-    function trocarPrincesa(situacao){
+    function trocarPrincesa(situacao) {
         let princesa = document.getElementById('princesa');
 
         if (situacao == 'resposta certa') {
@@ -305,6 +305,7 @@
     function avancar() {
         btnProx.disabled = true
         btnSubmeter.disabled = false
+        let contadorPrincesaSinistra = 0
 
         desmarcarRadioButtons()
 
@@ -324,12 +325,10 @@
             trocarBalao('questao03 anterior errada')
         }
 
-        if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+        if (numeroDaQuestaoAtual <= quantidadeDeQuestoes - 1) {
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
-        } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
-            alert("Atenção... a próxima é a ultima questão!")
-            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
-        } else {
+        } 
+         else {
             finalizarJogo()
         }
         limparCoresBackgroundOpcoes()
@@ -358,7 +357,7 @@
         // verifica se resposta assinalada é correta
         options.forEach((option) => {
             if (option.checked === true && option.value === respostaQuestaoAtual) {
-                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg") //pintar
+                document.getElementById(alternativaCorreta).classList.add("text_resposta_certa") //pintar
                 pontuacaoFinal++
                 certas++
                 document.getElementById("spanCertas").innerHTML = certas
@@ -384,8 +383,8 @@
             } else if (option.checked && option.value !== respostaQuestaoAtual) {
                 const wrongLabelId = option.labels[0].id
 
-                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
-                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                document.getElementById(wrongLabelId).classList.add("text_resposta_errada")
+                document.getElementById(alternativaCorreta).classList.add("text_resposta_certa")
                 tentativaIncorreta++
                 erradas++
                 document.getElementById("spanErradas").innerHTML = erradas
@@ -412,8 +411,8 @@
     function limparCoresBackgroundOpcoes() {
         const options = document.getElementsByName("option");
         options.forEach((option) => {
-            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
-            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("text_resposta_errada")
+            document.getElementById(option.labels[0].id).classList.remove("text_resposta_certa")
         })
     }
 
@@ -431,30 +430,30 @@
 
         if (porcentagemFinalDeAcertos <= 0.3) {
             textoParaMensagemFinal = "Parece que você não estudou..."
-            classComCoresParaMensagemFinal = "text-danger-with-bg"
+            classComCoresParaMensagemFinal = "text_resposta_errada"
         }
         else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
             textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
-            classComCoresParaMensagemFinal = "text-warning-with-bg"
+            classComCoresParaMensagemFinal = "text_resposta_errada"
         }
         else if (porcentagemFinalDeAcertos >= 0.9) {
             textoParaMensagemFinal = "Uau, parabéns!"
-            classComCoresParaMensagemFinal = "text-success-with-bg"
+            classComCoresParaMensagemFinal = "text_resposta_certa"
         }
 
-        if (porcentagemFinalDeAcertos <= 0.3 && respostaAnteriorCerta){
+        if (porcentagemFinalDeAcertos <= 0.3 && respostaAnteriorCerta) {
             trocarBalao('mais sorte anterior certa')
         }
 
-        else if (porcentagemFinalDeAcertos <= 0.3 && !respostaAnteriorCerta){
+        else if (porcentagemFinalDeAcertos <= 0.3 && !respostaAnteriorCerta) {
             trocarBalao('mais sorte anterior errada')
         }
 
-        else if (porcentagemFinalDeAcertos > 0.3 && respostaAnteriorCerta){
+        else if (porcentagemFinalDeAcertos > 0.3 && respostaAnteriorCerta) {
             trocarBalao('parabens anterior certa')
         }
 
-        else if (porcentagemFinalDeAcertos > 0.3 && !respostaAnteriorCerta){
+        else if (porcentagemFinalDeAcertos > 0.3 && !respostaAnteriorCerta) {
             trocarBalao('parabens anterior errada')
         }
 
@@ -473,32 +472,32 @@
         btnTentarNovamente.disabled = false
 
         fetch("/quiz/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        questao01: questao01Var,
-        questao02: questao02Var,
-        questao03: questao03Var,
-        idUsuario: sessionStorage.ID_USUARIO
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                questao01: questao01Var,
+                questao02: questao02Var,
+                questao03: questao03Var,
+                idUsuario: sessionStorage.ID_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
 
-        if (resposta.ok) {
-          
-        } else {
-          throw "Houve um erro ao tentar inserir as respostas do quiz!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        //finalizarAguardar();
-      });
+                if (resposta.ok) {
+
+                } else {
+                    throw "Houve um erro ao tentar inserir as respostas do quiz!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                //finalizarAguardar();
+            });
 
     }
 </script>

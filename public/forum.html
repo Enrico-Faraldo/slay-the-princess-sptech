@@ -52,32 +52,39 @@
         <canvas id="personagem"></canvas>
     </div>
 
+    <div class="grafico_quiz">
+        <canvas id="quiz"></canvas>
+    </div>
+
 </body>
 
 </html>
 <script>
-    window.onload = obterDadosGrafico
+    window.onload = function () {
+        obterDadosGraficoPersonagem()
+        obterDadosGraficoQuiz()
+    }
 
 
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+    // 2. plotarGraficoPersonagem -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGraficoPersonagem -> Atualiza o gráfico, trazendo novamente dados do Banco
 
     // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
     // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+    // A função *obterDadosGrafico* também invoca a função *plotarGraficoPersonagem*
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico() {
+    function obterDadosGraficoPersonagem() {
 
         fetch(`/medidas/buscarMedidasPersonagens`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                    plotarGrafico(resposta);
+                    plotarGraficoPersonagem(resposta);
 
                 });
             } else {
@@ -91,8 +98,8 @@
 
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta) {
+    // A função *plotarGrafico* também invoca a função *atualizarGraficoPersonagem*
+    function plotarGraficoPersonagem(resposta) {
 
 
         console.log('iniciando plotagem do gráfico...');
@@ -103,19 +110,28 @@
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Qual é o personagem favorito de Slay the Princess',
                 data: [resposta[0].narrador, resposta[0].princesa, resposta[0].protagonista, resposta[0].heroi],
                 backgroundColor: [
-                    'rgb(75, 192, 192)',    
-                    'rgb(199, 52, 52)',     
-                    'rgb(22, 52, 187)',     
-                    'rgb(154, 48, 187)'     
+                    'rgb(75, 192, 192)',
+                    'rgb(199, 52, 52)',
+                    'rgb(22, 52, 187)',
+                    'rgb(154, 48, 187)'
                 ],
             }]
         };
 
+        let options = {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "white"
+                    }
+                }
+            }
+        }
+
         console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGraficoPersonagem" e passados para "plotarGraficoPersonagem":')
         console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
@@ -138,6 +154,7 @@
         const config = {
             type: 'pie',
             data: dados,
+            options: options
         };
 
         // Adicionando gráfico criado em div na tela
@@ -146,16 +163,16 @@
             config
         );
 
-        setTimeout(() => atualizarGrafico(dados, myChart), 10000);
+        setTimeout(() => atualizarGraficoPersonagem(dados, myChart), 30000);
     }
 
 
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // Esta função *atualizarGraficoPersonagem* atualiza o gráfico que foi renderizado na página,
     // buscando a última medida inserida em tabela contendo as capturas, 
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(dados, myChart) {
+    function atualizarGraficoPersonagem(dados, myChart) {
 
 
 
@@ -178,12 +195,12 @@
 
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(dados, myChart), 10000);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoPersonagem(dados, myChart), 30000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(dados, myChart), 10000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoPersonagem(dados, myChart), 30000);
             }
         })
             .catch(function (error) {
@@ -191,5 +208,161 @@
             });
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    function obterDadosGraficoQuiz() {
+
+        fetch(`/medidas/buscarMedidasQuiz`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    plotarGraficoQuiz(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGraficoPersonagem*
+    function plotarGraficoQuiz(resposta) {
+
+
+        console.log('iniciando plotagem do gráfico...');
+
+
+        let labels = ['questao01', 'questao02', 'questao03'];
+
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Porcentagem de acertos',
+                data: [resposta[0].questao01, resposta[0].questao02, resposta[0].questao03],
+                backgroundColor: [
+                    'rgb(75, 192, 192)',
+                    'rgb(199, 52, 52)',
+                    'rgb(22, 52, 187)'
+                ],
+            }]
+        };
+
+        let options = {
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white' 
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white' 
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "white"
+                    }
+                }
+            }
+        }
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGraficoQuiz" e passados para "plotarGraficoQuiz":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        /*for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.umidade);
+            dados.datasets[1].data.push(registro.temperatura);
+        }*/
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: options
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`quiz`),
+            config
+        );
+
+        setTimeout(() => atualizarGraficoQuiz(dados, myChart), 30000);
+    }
+
+
+    // Esta função *atualizarGraficoPersonagem* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGraficoQuiz(dados, myChart) {
+
+
+
+        fetch(`/medidas/buscarMedidasQuiz`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    // alertar(novoRegistro, );
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+                    myChart.data.datasets[0].data = [
+                        novoRegistro[0].questao01,
+                        novoRegistro[0].questao02,
+                        novoRegistro[0].questao03
+                    ];
+                    myChart.update();
+
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoQuiz(dados, myChart), 30000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGraficoQuiz(dados, myChart), 30000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
 
 </script>

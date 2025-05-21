@@ -107,6 +107,16 @@ body {
     height: 40vh;
     width: 20vw;
     position: fixed;
+    background-color: rgba(0, 0, 0, 0.486);
     right: 69px;
     top: 175px;
+}
+
+.grafico_quiz{
+    height: 20vh;
+    width: 20vw;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.486);
+    left: 69px;
+    top: 300px;
 }

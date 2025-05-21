@@ -158,6 +158,17 @@ body {
     z-index: 3;
 }
 
+.banner .princesa_sinistra {
+    height: 60%;
+    width: 40%;
+    position: absolute;
+    background-image: url(../assets/princesa_sinistra.png);
+    background-size: contain;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+}
+
 .banner .pergunta {
     height: 27%;
     width: 20%;
@@ -209,4 +220,12 @@ body {
 
 .opcoes label {
     color: white;
+}
+
+.text_resposta_certa{
+    background-color: #198754a6;
+}
+
+.text_resposta_errada{
+    background-color: #871919a6;
 }

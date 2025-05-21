@@ -7,4 +7,8 @@ router.get("/buscarMedidasPersonagens", function (req, res) {
     medidaController.buscarMedidasPersonagens(req, res);
 })
 
+router.get("/buscarMedidasQuiz", function (req, res) {
+    medidaController.buscarMedidasQuiz(req, res);
+})
+
 module.exports = router;
