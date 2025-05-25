@@ -64,28 +64,50 @@ function cadastrar(req, res) {
                 if (resultado.length > 0) {
                     res.status(409).send("E-mail ou nome de usuário já existe!");
                 } else {
-                    
+
                     usuarioModel.cadastrar(nome_usuario, email, senha, personagem_favorito)
-                    .then(
-                        function (resultado) {
-                            res.json(resultado);
-                        }
-                    ).catch(
-                        function (erro) {
-                            console.log(erro);
-                            console.log(
-                                "\nHouve um erro ao realizar o cadastro! Erro: ",
-                                erro.sqlMessage
-                            );
-                            res.status(500).json(erro.sqlMessage);
-                        }
-                    );
+                        .then(
+                            function (resultado) {
+                                res.json(resultado);
+                            }
+                        ).catch(
+                            function (erro) {
+                                console.log(erro);
+                                console.log(
+                                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                                    erro.sqlMessage
+                                );
+                                res.status(500).json(erro.sqlMessage);
+                            }
+                        );
                 }
             });
     }
 }
 
+function buscarNumeroUsuarios(req, res) {
+
+    usuarioModel.buscarNumeroUsuarios()
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao buscar o número de usuários! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+};
+
+
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    buscarNumeroUsuarios
 }

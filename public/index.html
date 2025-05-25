@@ -52,7 +52,42 @@
         </div>
         <a href="cadastro.html">Matar a princesa</a>
     </div>
+
+    <div class="usuarios_cadastrados">
+        Nós já somos: <span id="usuarios"></span> percorrendo o caminho da Floresta!
+    </div>
     
 </body>
 
 </html>
+<script>
+    window.onload = atualizarNumeroUsuarios()
+
+    function atualizarNumeroUsuarios() {
+
+        fetch(`/usuarios/buscarNumeroUsuarios`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    // alertar(novoRegistro, );
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+
+                    document.getElementById('usuarios').innerHTML = novoRegistro[0].numero_usuarios
+
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarNumeroUsuarios(), 30000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarNumeroUsuarios(), 30000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+</script>

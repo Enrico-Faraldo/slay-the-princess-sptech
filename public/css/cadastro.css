@@ -1,0 +1,243 @@
+@font-face {
+    font-family: 'Titan-One';
+    src: url(../fonts/TitanOne-Regular.ttf) format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+
+.header {
+    height: 10vh;
+    width: 100vw;
+    background-color: rgb(0, 0, 0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+}
+
+.agora {
+    font-weight: 800;
+}
+
+.header .container {
+    height: 10vh;
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    z-index: 1000;
+}
+
+.header .container .icone {
+    height: 100%;
+    width: 8%;
+    position: absolute;
+    background-image: url(../assets/icone-logo-alt.png);
+    background-size: contain;
+    display: flex;
+}
+
+.header .container .navbar {
+    height: 100%;
+    width: 30%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+    align-self: flex-end;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Titan-One';
+}
+
+.banner {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    top: 0;
+    left: 0;
+    background-image: url(../assets/banner.png);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+
+}
+
+.banner .containerCadastro {
+    height: 62%;
+    width: 38%;
+    position: fixed;
+    left: 31vw;
+    top: 27vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.containerCadastro .cadastro {
+    height: 10%;
+    width: 40%;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 38px;
+    font-weight: 800;
+
+}
+
+.containerCadastro .usuario {
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.usuario .indicador {
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.usuario input {
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+
+}
+
+.containerCadastro .e-mail {
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.e-mail .indicador {
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.e-mail input {
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+
+}
+
+.containerCadastro .senha {
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.senha .indicador {
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.senha input {
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+
+}
+
+.containerCadastro .senhaConfirmacao {
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.senhaConfirmacao .indicador {
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.senhaConfirmacao input {
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+
+}
+
+.containerCadastro .personagemFavorito {
+    height: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.personagemFavorito .indicador {
+    height: 40%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.personagemFavorito select {
+    height: 60%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+    background-color: white;
+
+}
+
+.containerCadastro button {
+    height: 7%;
+    width: 25%;
+    background-color: black;
+    color: white;
+    border-radius: 7px;
+}

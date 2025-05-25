@@ -18,6 +18,11 @@
     --new-white: #E8E8E8;
 }
 
+@font-face {
+    font-family: 'Titan-One';
+    src: url(../fonts/TitanOne-Regular.ttf) format('truetype');
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -79,6 +84,7 @@ body {
 .navbar a {
     color: white;
     text-decoration: none;
+    font-family: 'Titan-One';
 }
 
 .banner {

@@ -14,6 +14,7 @@ body {
     overflow-x: hidden;
 }
 
+
 .header {
     height: 10vh;
     width: 100vw;
@@ -69,7 +70,7 @@ body {
 .banner {
     height: 100vh;
     width: 100vw;
-    position: sticky;
+    position: relative;
     top: 0;
     left: 0;
     background-image: url(../assets/banner.png);
@@ -79,50 +80,88 @@ body {
 
 }
 
-.banner .container {
-    height: 40%;
-    width: 35%;
-    background-color: rgba(0, 0, 0, 0.486);
-    border-radius: 5px;
+.banner .containerLogin {
+    height: 46%;
+    width: 38%;
     position: fixed;
-    left: 32%;
-    top: 200px;
+    left: 31vw;
+    top: 27vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+
+.containerLogin .login {
+    height: 10%;
+    width: 40%;
+    color: #000;
     display: flex;
     flex-direction: column;
-    justify-items: flex-start;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    font-size: 38px;
+    font-weight: 800;
+
 }
 
-.container span {
-    height: 10%;
+.containerLogin .e-mail {
+    height: 15%;
     width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+}
+
+.e-mail .indicador {
+    height: 50%;
+    width: 70%;
+    color: #000;
     font-size: 20px;
     font-weight: 600;
-    color: white;
-    text-align: center;
 }
 
-.container textarea {
+.e-mail input {
     height: 50%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+
+}
+
+.containerLogin .senha {
+    height: 15%;
     width: 80%;
-    resize: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
 }
 
-.grafico_personagem{
-    height: 40vh;
-    width: 20vw;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.486);
-    right: 69px;
-    top: 175px;
+.senha .indicador {
+    height: 50%;
+    width: 70%;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
 }
 
-.grafico_quiz{
-    height: 20vh;
-    width: 20vw;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.486);
-    left: 69px;
-    top: 300px;
+.senha input {
+    height: 50%;
+    width: 100%;
+    border-radius: 7px;
+    border: solid black;
+
+}
+
+.containerLogin button {
+    height: 7%;
+    width: 25%;
+    background-color: black;
+    color: white;
+    border-radius: 7px;
 }
