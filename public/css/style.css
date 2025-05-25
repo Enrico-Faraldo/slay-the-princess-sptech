@@ -181,6 +181,8 @@ body {
     font-family: 'Titan-One';
 }
 
+/*kpi de usuários cadastrados*/
+
 .usuarios_cadastrados {
     position: relative;
     height: 70vh;
@@ -196,4 +198,40 @@ body {
 }
 .usuarios_cadastrados span{
     font-size: 100px;
+}
+
+.sobre_jogo{
+    position: relative;
+    height: 70vh;
+    width: 100vw;
+    background-color: rgb(199, 196, 196);
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.sobre_jogo .texto{
+    height: 80%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: justify;
+}
+
+.sobre_jogo .texto .titulo{
+    font-size: 70px;
+    font-family: 'Titan-One';
+}
+
+.sobre_jogo .texto .descricao{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.sobre_jogo .trailer{
+    height: 80%;
+    width: 40%;
 }
