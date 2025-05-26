@@ -7,6 +7,7 @@
     <title>Slay the Princess Fanpage</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./assets/icone.png">
+    <script src="./js/sessao.js"></script>
 
 </head>
 
@@ -19,19 +20,22 @@
                     <a href="#">Início</a>
                 </li>
                 <li>
-                    <a href="forum.html">Fórum</a>
+                    <a href="#" onclick="acessarForum()">Fórum</a>
                 </li>
                 <li>
-                    <a href="quiz.html">Quiz</a>
+                    <a href="#" onclick="acessarQuiz()">Quiz</a>
                 </li>
                 <li>
                     <a>|</a>
                 </li>
-                <li>
+                <li id="li_login">
                     <a href="login.html">Login</a>
                 </li>
-                <li>
+                <li id="li_cadastro">
                     <a href="cadastro.html">Cadastro</a>
+                </li>
+                <li id="li_sair" style="display: none;">
+                    <a href="#" onclick="sair()">Sair</a>
                 </li>
             </ul>
         </div>
@@ -47,7 +51,8 @@
 
     <div class="sobre">
         <div class="titulo">O que é a fanpage?</div>
-        <div class="texto">Slay the Princess é um jogo incrível! E nós somos fãs apaixonados por ele. Criamos este espaço para que os amantes do jogo possam discutir
+        <div class="texto">Slay the Princess é um jogo incrível! E nós somos fãs apaixonados por ele. Criamos este
+            espaço para que os amantes do jogo possam discutir
             sobre ele de forma respeitosa e educada. Por isso, faça seu cadastro e mate a princesa!
         </div>
         <a href="cadastro.html">Matar a princesa</a>
@@ -60,18 +65,24 @@
     <div class="sobre_jogo">
         <div class="texto">
             <span class="titulo">Slay the Princess!</span>
-            <span class="descricao">Com avaliações extremamente altas na Steam, o jogo impressiona com sua capacidade de construir uma narrativa baseada nas decisões do jogador
-                e o convida a reflexões filosóficas profundas, ensina sobre psicologia e provê uma experiência inesquecível e muito divertida!
+            <span class="descricao">Com avaliações extremamente altas na Steam, o jogo impressiona com sua capacidade de
+                construir uma narrativa baseada nas decisões do jogador
+                e o convida a reflexões filosóficas profundas, ensina sobre psicologia e provê uma experiência
+                inesquecível e muito divertida!
             </span>
         </div>
-        <video src="./assets/Slay-the-Princess-Trailer.mp4" width="1920" height="1080" controls class="trailer">Seu navegador não suporta vídeos</video>
+        <video src="./assets/Slay-the-Princess-Trailer.mp4" width="1920" height="1080" controls class="trailer">Seu
+            navegador não suporta vídeos</video>
     </div>
-    
+
 </body>
 
 </html>
 <script>
-    window.onload = atualizarNumeroUsuarios()
+    window.onload = function () {
+        atualizarNumeroUsuarios()
+        verificarLogin()
+    } 
 
     function atualizarNumeroUsuarios() {
 
@@ -100,4 +111,6 @@
             });
 
     }
+    console.log(sessionStorage);
+    
 </script>

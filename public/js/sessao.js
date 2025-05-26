@@ -17,6 +17,36 @@ function limparSessao() {
     window.location = "../login.html";
 }
 
+function acessarForum() {
+    if (sessionStorage.length != 0) {
+        window.location.href = "forum.html";
+    } else {
+        window.location.href = "login.html";
+    }
+}
+
+function acessarQuiz() {
+    if (sessionStorage.length != 0) {
+        window.location.href = "quiz.html";
+    } else {
+        window.location.href = "login.html";
+    }
+}
+
+function sair() {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+}
+
+function verificarLogin(){
+
+        if (sessionStorage.length != 0) {
+            document.getElementById("li_login").style.display = "none";
+            document.getElementById("li_cadastro").style.display = "none";
+            document.getElementById("li_sair").style.display = "inline";
+        }
+}
+
 // carregamento (loading)
 /*function aguardar() {
     var divAguardar = document.getElementById("div_aguardar");

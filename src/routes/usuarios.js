@@ -16,4 +16,8 @@ router.get("/buscarNumeroUsuarios", function (req, res) {
     usuarioController.buscarNumeroUsuarios(req, res);
 });
 
+router.get("/buscarDiscussoes", function (req, res) {
+    usuarioController.buscarDiscussoes(req, res);
+});
+
 module.exports = router;

@@ -7,6 +7,7 @@
     <title>Slay the Quiz</title>
     <link rel="stylesheet" href="./css/style_quiz.css">
     <link rel="icon" href="./assets/icone.png">
+    <script src="./js/sessao.js"></script>
 </head>
 
 
@@ -20,19 +21,22 @@
                     <a href="index.html">Início</a>
                 </li>
                 <li>
-                    <a href="forum.html">Fórum</a>
+                    <a href="#" onclick="acessarForum()">Fórum</a>
                 </li>
                 <li>
-                    <a href="#" class="agora">Quiz</a>
+                    <a href="#" onclick="acessarQuiz()" class="agora">Quiz</a>
                 </li>
                 <li>
                     <a>|</a>
                 </li>
-                <li>
+                <li id="li_login">
                     <a href="login.html">Login</a>
                 </li>
-                <li>
-                    <a href="#">Cadastro</a>
+                <li id="li_cadastro">
+                    <a href="cadastro.html">Cadastro</a>
+                </li>
+                <li id="li_sair" style="display: none;">
+                    <a href="#" onclick="sair()">Sair</a>
                 </li>
             </ul>
         </div>
@@ -93,6 +97,8 @@
 
 </html>
 <script>
+    window.onload = verificarLogin()
+
     const listaDeQuestoes = [
 
         {

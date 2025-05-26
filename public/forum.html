@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./css/style_forum.css">
     <link rel="icon" href="./assets/icone.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/sessao.js"></script>
 
 
 </head>
@@ -21,32 +22,37 @@
                     <a href="index.html">Início</a>
                 </li>
                 <li class="agora">
-                    <a href="#">Fórum</a>
+                    <a href="#" onclick="acessarForum()">Fórum</a>
                 </li>
                 <li>
-                    <a href="quiz.html">Quiz</a>
+                    <a href="#" onclick="acessarQuiz()">Quiz</a>
                 </li>
                 <li>
                     <a>|</a>
                 </li>
-                <li>
+                <li id="li_login">
                     <a href="login.html">Login</a>
                 </li>
-                <li>
+                <li id="li_cadastro">
                     <a href="cadastro.html">Cadastro</a>
+                </li>
+                <li id="li_sair" style="display: none;">
+                    <a href="#" onclick="sair()">Sair</a>
                 </li>
             </ul>
         </div>
     </div>
 
 
-    <div class="banner">
-        <div class="container">
-            <span>INICIAR DISCUSSÃO</span>
-            <textarea id="ipt_comentario" placeholder="digite seu texto aqui"></textarea>
-            <button>Comentar</button>
-        </div>
+    <div class="banner"></div>
+
+    <div class="comentar">
+        <span>INICIAR DISCUSSÃO</span>
+        <textarea id="ipt_comentario" placeholder="digite seu texto aqui"></textarea>
+        <button>Comentar</button>
     </div>
+
+    <div id="div_discussoes"></div>
 
     <div class="grafico_personagem">
         <canvas id="personagem"></canvas>
@@ -63,8 +69,37 @@
     window.onload = function () {
         obterDadosGraficoPersonagem()
         obterDadosGraficoQuiz()
+        adicionarDiscussoes()
+        verificarLogin()
     }
 
+    function adicionarDiscussoes() {
+
+        let discussao = ''
+
+        fetch(`/usuarios/buscarDiscussoes`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    for (i = 0; i < resposta.length; i++) {
+                        discussao += `<div id="div_discussoes" class="discussoes">
+                <span>${resposta[i].nome_usuario}</span>
+                <div class="discussao">${resposta[i].conteudo}</div>
+                    <button>Comentarios</button>
+                    </div>`
+                    }
+                    div_discussoes.innerHTML = discussao
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
@@ -267,13 +302,13 @@
             scales: {
                 x: {
                     ticks: {
-                        color: 'white' 
+                        color: 'white'
                     }
                 },
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        color: 'white' 
+                        color: 'white'
                     }
                 }
             },
@@ -363,6 +398,5 @@
             });
 
     }
-
 
 </script>
