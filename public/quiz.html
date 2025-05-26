@@ -11,7 +11,7 @@
 </head>
 
 
-<body onload="onloadEsconder()">
+<body>
 
     <div class="header">
         <div class="container">
@@ -97,7 +97,10 @@
 
 </html>
 <script>
-    window.onload = verificarLogin()
+    window.onload = function () {
+        verificarLogin()
+        onloadEsconder()
+    } 
 
     const listaDeQuestoes = [
 
