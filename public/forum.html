@@ -48,11 +48,13 @@
 
     <div class="comentar">
         <span>INICIAR DISCUSSÃO</span>
-        <textarea id="ipt_comentario" placeholder="digite seu texto aqui"></textarea>
-        <button>Comentar</button>
+        <textarea id="ipt_conteudo" placeholder="digite seu texto aqui"></textarea>
+        <button onclick="adicionarDiscussaoNova()">Comentar</button>
     </div>
 
-    <div id="div_discussoes"></div>
+    <div id="div_discussoes">
+        <span class="usuario"></span><span class="data"></span>
+    </div>
 
     <div class="grafico_personagem">
         <canvas id="personagem"></canvas>
@@ -73,6 +75,48 @@
         verificarLogin()
     }
 
+    function adicionarDiscussaoNova() {
+
+        let conteudoVar = ipt_conteudo.value
+        let fkusuarioVar = sessionStorage.ID_USUARIO
+
+        if (conteudoVar == '') {
+            alert('Digite algo para postar!')
+        }
+
+        else {
+
+            fetch("/usuarios/adicionarDiscussao", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    conteudoServer: conteudoVar,
+                    fkusuarioServer: fkusuarioVar
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+
+                        window.location.reload()
+
+                    } else {
+                        throw "Houve um erro ao tentar adicionar o comentário!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+
+        }
+    }
+
     function adicionarDiscussoes() {
 
         let discussao = ''
@@ -84,7 +128,10 @@
 
                     for (i = 0; i < resposta.length; i++) {
                         discussao += `<div id="div_discussoes" class="discussoes">
-                <span>${resposta[i].nome_usuario}</span>
+                            <div class="info">
+                <span class="usuario">${resposta[i].nome_usuario}</span>
+                <span class="data">${resposta[i].data_postagem} ${resposta[i].hora_postagem}</span>
+                </div>
                 <div class="discussao">${resposta[i].conteudo}</div>
                     <button>Comentarios</button>
                     </div>`
@@ -198,7 +245,7 @@
             config
         );
 
-        setTimeout(() => atualizarGraficoPersonagem(dados, myChart), 30000);
+        setTimeout(() => atualizarGraficoPersonagem(dados, myChart), 60000);
     }
 
 
@@ -230,12 +277,12 @@
 
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoPersonagem(dados, myChart), 30000);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoPersonagem(dados, myChart), 60000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGraficoPersonagem(dados, myChart), 30000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoPersonagem(dados, myChart), 60000);
             }
         })
             .catch(function (error) {
@@ -354,7 +401,7 @@
             config
         );
 
-        setTimeout(() => atualizarGraficoQuiz(dados, myChart), 30000);
+        setTimeout(() => atualizarGraficoQuiz(dados, myChart), 60000);
     }
 
 
@@ -385,12 +432,12 @@
 
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoQuiz(dados, myChart), 30000);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoQuiz(dados, myChart), 60000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGraficoQuiz(dados, myChart), 30000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoQuiz(dados, myChart), 60000);
             }
         })
             .catch(function (error) {

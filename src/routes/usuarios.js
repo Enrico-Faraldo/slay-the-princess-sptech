@@ -20,4 +20,8 @@ router.get("/buscarDiscussoes", function (req, res) {
     usuarioController.buscarDiscussoes(req, res);
 });
 
+router.post("/adicionarDiscussao", function (req, res) {
+    usuarioController.adicionarDiscussao(req, res);
+})
+
 module.exports = router;

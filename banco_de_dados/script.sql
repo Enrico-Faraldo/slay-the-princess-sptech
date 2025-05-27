@@ -14,7 +14,7 @@ unique (nome_usuario)
 create table if not exists postagem(
 id int primary key auto_increment, 
 conteudo text, 
-data_postagem date,
+data_postagem datetime,
 fkusuario int,
 foreign key (fkusuario) references usuario(id),
 key (fkusuario)
@@ -23,7 +23,7 @@ key (fkusuario)
 create table if not exists comentario(
 id int primary key auto_increment, 
 conteudo text, 
-data_comentario date,
+data_comentario datetime,
 fkpostagem int,
 foreign key (fkpostagem) references postagem(id),
 key (fkpostagem)

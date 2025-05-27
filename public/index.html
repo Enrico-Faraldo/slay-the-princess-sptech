@@ -98,12 +98,12 @@
 
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarNumeroUsuarios(), 30000);
+                    proximaAtualizacao = setTimeout(() => atualizarNumeroUsuarios(), 60000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarNumeroUsuarios(), 30000);
+                proximaAtualizacao = setTimeout(() => atualizarNumeroUsuarios(), 60000);
             }
         })
             .catch(function (error) {

@@ -123,11 +123,41 @@ function buscarDiscussoes(req, res) {
         );
 };
 
+function adicionarDiscussao(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var conteudo = req.body.conteudoServer;
+    var fkusuario = req.body.fkusuarioServer;
+
+    // Faça as validações dos valores
+    if (conteudo == undefined) {
+        res.status(400).send("Seu comentário está undefined!");
+    } else {
+
+        usuarioModel.adicionarDiscussao(conteudo, fkusuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao adicionar o comentário! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+
+    }
+}
+
 
 
 module.exports = {
     autenticar,
     cadastrar,
     buscarNumeroUsuarios,
-    buscarDiscussoes
+    buscarDiscussoes,
+    adicionarDiscussao
 }
