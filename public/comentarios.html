@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slay the Princess Fanpage</title>
+    <link rel="stylesheet" href="./css/style_forum.css">
+    <link rel="icon" href="./assets/icone.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/sessao.js"></script>
+
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="icone"></div>
+            <ul class="navbar">
+                <li>
+                    <a href="index.html">Início</a>
+                </li>
+                <li class="agora">
+                    <a href="#" onclick="acessarForum()">Fórum</a>
+                </li>
+                <li>
+                    <a href="#" onclick="acessarQuiz()">Quiz</a>
+                </li>
+                <li>
+                    <a>|</a>
+                </li>
+                <li id="li_login">
+                    <a href="login.html">Login</a>
+                </li>
+                <li id="li_cadastro">
+                    <a href="cadastro.html">Cadastro</a>
+                </li>
+                <li id="li_sair" style="display: none;">
+                    <a href="#" onclick="sair()">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="banner"></div>
+
+    <div class="comentar">
+        <span>INICIAR DISCUSSÃO</span>
+        <textarea id="ipt_conteudo" placeholder="digite seu texto aqui"></textarea>
+        <button onclick="adicionarDiscussaoNova()">Comentar</button>
+    </div>
+
+    <div id="div_discussoes">
+        <span class="usuario"></span><span class="data"></span>
+    </div>
+
+    <div class="grafico_personagem">
+        <canvas id="personagem"></canvas>
+    </div>
+
+    <div class="grafico_quiz">
+        <canvas id="quiz"></canvas>
+    </div>
+
+</body>
+
+</html>
+<script>
+     window.onload = function () {
+        verificarLogin()
+    }
+</script>

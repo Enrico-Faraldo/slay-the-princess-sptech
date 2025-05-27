@@ -111,6 +111,12 @@
       return false;
     }
 
+    else if (nomeVar.length > 50){
+      alert('Nome de usuário muito longo!')
+
+      return false;
+    }
+
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",

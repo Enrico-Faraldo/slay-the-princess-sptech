@@ -49,7 +49,7 @@ function buscarDiscussoes() {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-       SELECT p.conteudo, date_format(p.data_postagem, '%d/%m/%Y') data_postagem, time(p.data_postagem) hora_postagem, u.nome_usuario 
+       SELECT p.conteudo, date_format(p.data_postagem, '%d/%m/%Y') data_postagem, time(p.data_postagem) hora_postagem, u.nome_usuario, p.id id_postagem
         FROM postagem p
         LEFT JOIN usuario u ON p.fkusuario = u.id;
     `;
