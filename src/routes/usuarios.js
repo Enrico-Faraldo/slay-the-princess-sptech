@@ -24,4 +24,16 @@ router.post("/adicionarDiscussao", function (req, res) {
     usuarioController.adicionarDiscussao(req, res);
 })
 
+router.get("/buscarComentarios", function (req, res) {
+    usuarioController.buscarComentarios(req, res);
+});
+
+router.post("/adicionarComentario", function (req, res) {
+    usuarioController.adicionarComentario(req, res);
+})
+
+router.get("/buscarComentarioPrincipal", function (req, res) {
+    usuarioController.buscarComentarioPrincipal(req, res);
+});
+
 module.exports = router;

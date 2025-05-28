@@ -70,11 +70,54 @@ function adicionarDiscussao(conteudo, fkusuario) {
     return database.executar(instrucaoSql);
 }
 
+function buscarComentarios() {
+
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+       SELECT c.conteudo, date_format(c.data_comentario, '%d/%m/%Y') data_comentario, time(c.data_comentario) hora_comentario, u.nome_usuario 
+        FROM comentario c
+        LEFT JOIN usuario u ON c.fkusuario = u.id;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function adicionarComentario(conteudo, fkusuario, fkpostagem) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarDiscussao():", conteudo, fkusuario, fkpostagem);
+
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+        INSERT INTO comentario (conteudo, data_comentario, fkpostagem, fkusuario)
+        VALUES ('${conteudo}', current_timestamp(), ${fkpostagem}, ${fkusuario});
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarComentarioPrincipal(idPostagem) {
+
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+       SELECT p.conteudo, date_format(p.data_postagem, '%d/%m/%Y') data_postagem, time(p.data_postagem) hora_postagem, u.nome_usuario, p.id
+        FROM postagem p
+        LEFT JOIN usuario u ON p.fkusuario = u.id
+        WHERE p.id = ${idPostagem};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     verificarSeUsuarioExiste,
     buscarNumeroUsuarios,
     buscarDiscussoes,
-    adicionarDiscussao
+    adicionarDiscussao,
+    buscarComentarios,
+    adicionarComentario,
+    buscarComentarioPrincipal
 };

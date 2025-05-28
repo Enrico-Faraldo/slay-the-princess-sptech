@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slay the Princess Fanpage</title>
-    <link rel="stylesheet" href="./css/style_forum.css">
+    <link rel="stylesheet" href="./css/comentarios.css">
     <link rel="icon" href="./assets/icone.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./js/sessao.js"></script>
@@ -47,28 +47,138 @@
     <div class="banner"></div>
 
     <div class="comentar">
-        <span>INICIAR DISCUSSÃO</span>
+        <span>Adicionar Comentário</span>
         <textarea id="ipt_conteudo" placeholder="digite seu texto aqui"></textarea>
-        <button onclick="adicionarDiscussaoNova()">Comentar</button>
+        <button onclick="adicionarComentarioNovo()">Comentar</button>
     </div>
 
-    <div id="div_discussoes">
+    <div id="div_comentario_principal">
         <span class="usuario"></span><span class="data"></span>
     </div>
 
-    <div class="grafico_personagem">
-        <canvas id="personagem"></canvas>
-    </div>
-
-    <div class="grafico_quiz">
-        <canvas id="quiz"></canvas>
+    <div id="div_comentarios">
+        <span class="usuario"></span><span class="data"></span>
     </div>
 
 </body>
 
 </html>
 <script>
-     window.onload = function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idPostagem = urlParams.get('idPostagem');
+    
+    window.onload = function () {
         verificarLogin()
+        adicionarComentarios()
+        mostrarComentarioPrincipal()
+        
     }
+    
+
+    console.log("ID da postagem recebido da URL:", idPostagem);
+    
+     function adicionarComentarioNovo() {
+
+        let conteudoVar = ipt_conteudo.value
+        let fkusuarioVar = sessionStorage.ID_USUARIO
+
+        if (conteudoVar == '') {
+            alert('Digite algo para postar!')
+        }
+
+        else {
+
+            fetch("/usuarios/adicionarComentario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    conteudoServer: conteudoVar,
+                    fkusuarioServer: fkusuarioVar,
+                    fkpostagemServer: idPostagem
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+
+                        window.location.reload()
+
+                    } else {
+                        throw "Houve um erro ao tentar adicionar o comentário!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+
+        }
+    }
+
+    function adicionarComentarios() {
+
+        let comentario = ''
+
+        fetch(`/usuarios/buscarComentarios`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    for (i = 0; i < resposta.length; i++) {
+                        comentario += `<div id="div_comentarios" class="comentarios">
+                            <div class="info">
+                <span class="usuario">${resposta[i].nome_usuario}</span>
+                <span class="data">${resposta[i].data_comentario} ${resposta[i].hora_comentario}</span>
+                </div>
+                <div class="comentario">${resposta[i].conteudo}</div>
+                    </div>`
+                    }
+                    div_comentarios.innerHTML = comentario
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function mostrarComentarioPrincipal() {
+        
+
+    fetch(`/usuarios/buscarComentarioPrincipal?idPostagem=${idPostagem}`, {
+        method: "GET",
+        cache: 'no-store'
+    })
+    .then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                div_comentario_principal.innerHTML += `
+                    <div id="div_comentario_principal" class="comentario_principal">
+                        <div class="info">
+                            <span class="usuario">${resposta[0].nome_usuario}</span>
+                            <span class="data">${resposta[0].data_postagem} ${resposta[0].hora_postagem}</span>
+                        </div>
+                        <div class="comentario">${resposta[0].conteudo}</div>
+                    </div>`;
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados: ${error.message}`);
+    });
+}
+
+
 </script>

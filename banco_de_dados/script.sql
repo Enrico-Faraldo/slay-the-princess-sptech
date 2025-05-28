@@ -25,8 +25,11 @@ id int primary key auto_increment,
 conteudo text, 
 data_comentario datetime,
 fkpostagem int,
+fkusuario int,
 foreign key (fkpostagem) references postagem(id),
-key (fkpostagem)
+foreign key (fkusuario) references usuario(id),
+key (fkpostagem),
+key (fkusuario)
 );
 
 create table if not exists quiz(

@@ -115,7 +115,7 @@ function buscarDiscussoes(req, res) {
             function (erro) {
                 console.log(erro);
                 console.log(
-                    "\nHouve um erro ao buscar o número de usuários! Erro: ",
+                    "\nHouve um erro ao buscar o discussões! Erro: ",
                     erro.sqlMessage
                 );
                 res.status(500).json(erro.sqlMessage);
@@ -152,6 +152,80 @@ function adicionarDiscussao(req, res) {
     }
 }
 
+function buscarComentarios(req, res) {
+
+    usuarioModel.buscarComentarios()
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao buscar comentários! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+};
+
+function adicionarComentario(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var conteudo = req.body.conteudoServer;
+    var fkusuario = req.body.fkusuarioServer;
+    var fkpostagem = req.body.fkpostagemServer;
+
+    // Faça as validações dos valores
+    if (conteudo == undefined) {
+        res.status(400).send("Seu comentário está undefined!");
+    } else {
+
+        usuarioModel.adicionarComentario(conteudo, fkusuario, fkpostagem)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao adicionar o comentário! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+
+    }
+}
+
+function buscarComentarioPrincipal(req, res) {
+    var idPostagem = req.query.idPostagem;
+
+    if (idPostagem == undefined) {
+        res.status(400).send("O ID da postagem está undefined!");
+    }
+
+    else {
+        usuarioModel.buscarComentarioPrincipal(idPostagem)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao buscar comentários! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+};
 
 
 module.exports = {
@@ -159,5 +233,8 @@ module.exports = {
     cadastrar,
     buscarNumeroUsuarios,
     buscarDiscussoes,
-    adicionarDiscussao
+    adicionarDiscussao,
+    buscarComentarios,
+    adicionarComentario,
+    buscarComentarioPrincipal
 }
