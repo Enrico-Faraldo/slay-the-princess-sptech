@@ -205,3 +205,13 @@ body {
     border-radius: 5px;
     font-size: 17px;
 }
+
+.discussoes button {
+    height: 10%;
+    width: 30%;
+    font-family: 'Titan-One';
+    color: black;
+    background-color: white;
+    border-radius: 15px;
+    font-size: 17px;
+}

@@ -124,7 +124,11 @@
 
         let comentario = ''
 
-        fetch(`/usuarios/buscarComentarios`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/usuarios/buscarComentarios?idPostagem=${idPostagem}`, {
+            method: "GET",
+            cache: 'no-store'
+            })
+             .then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);

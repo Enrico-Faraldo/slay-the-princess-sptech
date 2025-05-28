@@ -70,14 +70,15 @@ function adicionarDiscussao(conteudo, fkusuario) {
     return database.executar(instrucaoSql);
 }
 
-function buscarComentarios() {
+function buscarComentarios(idPostagem) {
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-       SELECT c.conteudo, date_format(c.data_comentario, '%d/%m/%Y') data_comentario, time(c.data_comentario) hora_comentario, u.nome_usuario 
+       SELECT c.conteudo, date_format(c.data_comentario, '%d/%m/%Y') data_comentario, time(c.data_comentario) hora_comentario, u.nome_usuario, c.fkpostagem
         FROM comentario c
-        LEFT JOIN usuario u ON c.fkusuario = u.id;
+        LEFT JOIN usuario u ON c.fkusuario = u.id
+        WHERE c.fkpostagem = ${idPostagem};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

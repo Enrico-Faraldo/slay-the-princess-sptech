@@ -153,22 +153,28 @@ function adicionarDiscussao(req, res) {
 }
 
 function buscarComentarios(req, res) {
+    var idPostagem = req.query.idPostagem;
 
-    usuarioModel.buscarComentarios()
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log(
-                    "\nHouve um erro ao buscar comentários! Erro: ",
-                    erro.sqlMessage
-                );
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+    if (idPostagem == undefined) {
+        res.status(400).send("O ID da postagem está undefined!");
+    } else {
+        usuarioModel.buscarComentarios(idPostagem)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao buscar comentários! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
 };
 
 function adicionarComentario(req, res) {
