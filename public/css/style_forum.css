@@ -215,3 +215,25 @@ body {
     border-radius: 15px;
     font-size: 17px;
 }
+
+#btn_anterior{
+    height: 50px;
+    width: 90px;
+    position: fixed;
+    left: 100px;
+    top: 85vh;
+}
+
+#btn_proximo{
+    height: 50px;
+    width: 90px;
+    position: fixed;
+    left: 200px;
+    top: 85vh;
+}
+
+/*button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}*/

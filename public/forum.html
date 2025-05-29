@@ -64,15 +64,82 @@
         <canvas id="quiz"></canvas>
     </div>
 
+    <button id="btn_proximo" onclick="proximo()" autocomplete="off">próximo</button>
+    <button id="btn_anterior" onclick="anterior()" disabled autocomplete="off">anterior</button>
+
 </body>
 
 </html>
 <script>
     window.onload = function () {
+        buscarIdMax()
+        .then(() => {
+            adicionarDiscussoes(idMax);
+        })
+        .then(() => {
+            verificar10Postagens();
+        })
+        .catch((erro) => {
+            console.error("Erro ao buscar idMax:", erro);
+        });
         obterDadosGraficoPersonagem()
         obterDadosGraficoQuiz()
-        adicionarDiscussoes()
         verificarLogin()
+    }
+
+    let idGlobal;
+    let idMax;
+
+    function verificar10Postagens(){
+        if (idMax <= 10){
+            document.getElementById('btn_proximo').disabled = true
+        }
+    }
+    
+    function proximo(){
+        idGlobal -= 10
+        document.getElementById('btn_anterior').disabled = false
+
+        adicionarDiscussoes(idGlobal)
+
+        if (idGlobal <= 10){
+            document.getElementById('btn_proximo').disabled = true
+        }
+    }
+
+    function anterior(){
+        idGlobal += 10
+        document.getElementById('btn_proximo').disabled = false
+
+        adicionarDiscussoes(idGlobal)
+
+        if (idGlobal >= (idMax - 10)){
+            document.getElementById('btn_anterior').disabled = true
+        }
+    }
+
+    function buscarIdMax() {
+
+        return fetch(`/usuarios/buscarIdMax`, {
+            method: "GET",
+            cache: 'no-store'
+        })
+            .then(function (response) {
+                if (response.ok) {
+                   return response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        idGlobal = resposta[0].idMax
+                        idMax = resposta[0].idMax
+
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
     function adicionarDiscussaoNova() {
@@ -117,17 +184,21 @@
         }
     }
 
-    function adicionarDiscussoes() {
+    function adicionarDiscussoes(idPostagem) {
 
         let discussao = ''
 
-        fetch(`/usuarios/buscarDiscussoes`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        fetch(`/usuarios/buscarDiscussoes?idPostagem=${idPostagem}`, {
+            method: "GET",
+            cache: 'no-store'
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                    for (i = 0; i < resposta.length; i++) {
-                        discussao += `<div id="div_discussoes" class="discussoes">
+                        for (i = 0; i < resposta.length; i++) {
+                            discussao += `<div id="div_discussoes" class="discussoes">
                             <div class="info">
                 <span class="usuario">${resposta[i].nome_usuario}</span>
                 <span class="data">${resposta[i].data_postagem} ${resposta[i].hora_postagem}</span>
@@ -135,14 +206,14 @@
                 <div class="discussao">${resposta[i].conteudo}</div>
                     <button onclick="abrirComentarios(${resposta[i].id_postagem})">Comentários</button>
                     </div>`
-                    }
-                    div_discussoes.innerHTML = discussao
+                        }
+                        div_discussoes.innerHTML = discussao
 
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });

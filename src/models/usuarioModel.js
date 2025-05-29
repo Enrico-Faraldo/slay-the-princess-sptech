@@ -44,14 +44,17 @@ function buscarNumeroUsuarios() {
     return database.executar(instrucaoSql);
 }
 
-function buscarDiscussoes() {
+function buscarDiscussoes(idPostagem) {
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
        SELECT p.conteudo, date_format(p.data_postagem, '%d/%m/%Y') data_postagem, time(p.data_postagem) hora_postagem, u.nome_usuario, p.id id_postagem
         FROM postagem p
-        LEFT JOIN usuario u ON p.fkusuario = u.id;
+        LEFT JOIN usuario u ON p.fkusuario = u.id
+        WHERE p.id <= ${idPostagem}
+        ORDER BY id_postagem DESC
+        LIMIT 10;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -111,6 +114,18 @@ function buscarComentarioPrincipal(idPostagem) {
     return database.executar(instrucaoSql);
 }
 
+function buscarIdMax() {
+
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+       SELECT max(p.id) idMax
+       FROM postagem p;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -120,5 +135,6 @@ module.exports = {
     adicionarDiscussao,
     buscarComentarios,
     adicionarComentario,
-    buscarComentarioPrincipal
+    buscarComentarioPrincipal,
+    buscarIdMax
 };

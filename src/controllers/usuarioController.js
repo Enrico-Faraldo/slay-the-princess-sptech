@@ -105,8 +105,9 @@ function buscarNumeroUsuarios(req, res) {
 };
 
 function buscarDiscussoes(req, res) {
+    var idPostagem = req.query.idPostagem;
 
-    usuarioModel.buscarDiscussoes()
+    usuarioModel.buscarDiscussoes(idPostagem)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -233,6 +234,26 @@ function buscarComentarioPrincipal(req, res) {
     }
 };
 
+function buscarIdMax(req, res) {
+    var idPostagem = req.query.idPostagem;
+
+    usuarioModel.buscarIdMax(idPostagem)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao buscar o discussões! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+};
+
 
 module.exports = {
     autenticar,
@@ -242,5 +263,6 @@ module.exports = {
     adicionarDiscussao,
     buscarComentarios,
     adicionarComentario,
-    buscarComentarioPrincipal
+    buscarComentarioPrincipal,
+    buscarIdMax
 }

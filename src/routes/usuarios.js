@@ -36,4 +36,8 @@ router.get("/buscarComentarioPrincipal", function (req, res) {
     usuarioController.buscarComentarioPrincipal(req, res);
 });
 
+router.get("/buscarIdMax", function (req, res) {
+    usuarioController.buscarIdMax(req, res);
+});
+
 module.exports = router;
