@@ -235,9 +235,8 @@ function buscarComentarioPrincipal(req, res) {
 };
 
 function buscarIdMax(req, res) {
-    var idPostagem = req.query.idPostagem;
 
-    usuarioModel.buscarIdMax(idPostagem)
+    usuarioModel.buscarIdMax()
         .then(
             function (resultado) {
                 res.json(resultado);

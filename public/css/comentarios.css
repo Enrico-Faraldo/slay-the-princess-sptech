@@ -256,3 +256,21 @@ body {
     border-radius: 5px;
     font-size: 17px;
 }
+
+#btn_anterior{
+    height: 50px;
+    width: 90px;
+    position: fixed;
+    left: 100px;
+    top: 85vh;
+    z-index: 30;
+}
+
+#btn_proximo{
+    height: 50px;
+    width: 90px;
+    position: fixed;
+    left: 200px;
+    top: 85vh;
+    z-index: 30;
+}

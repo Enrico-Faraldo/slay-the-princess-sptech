@@ -78,10 +78,13 @@ function buscarComentarios(idPostagem) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-       SELECT c.conteudo, date_format(c.data_comentario, '%d/%m/%Y') data_comentario, time(c.data_comentario) hora_comentario, u.nome_usuario, c.fkpostagem
+       SELECT c.conteudo, c.data_comentario data_completa, date_format(c.data_comentario, '%d/%m/%Y') data_comentario, time(c.data_comentario) hora_comentario,
+        u.nome_usuario, c.fkpostagem, c.id id_comentario
         FROM comentario c
         LEFT JOIN usuario u ON c.fkusuario = u.id
-        WHERE c.fkpostagem = ${idPostagem};
+        WHERE c.fkpostagem = ${idPostagem}
+        ORDER BY data_completa DESC
+        LIMIT 50;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

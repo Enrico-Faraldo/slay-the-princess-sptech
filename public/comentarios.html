@@ -68,14 +68,10 @@
     const idPostagem = urlParams.get('idPostagem');
     
     window.onload = function () {
-        verificarLogin()
         adicionarComentarios()
+        verificarLogin()
         mostrarComentarioPrincipal()
-        
     }
-    
-
-    console.log("ID da postagem recebido da URL:", idPostagem);
     
      function adicionarComentarioNovo() {
 
@@ -124,7 +120,7 @@
 
         let comentario = ''
 
-        fetch(`/usuarios/buscarComentarios?idPostagem=${idPostagem}`, {
+        return fetch(`/usuarios/buscarComentarios?idPostagem=${idPostagem}`, {
             method: "GET",
             cache: 'no-store'
             })
