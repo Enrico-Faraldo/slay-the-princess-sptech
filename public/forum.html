@@ -67,53 +67,102 @@
     <button id="btn_proximo" onclick="proximo()" autocomplete="off">próximo</button>
     <button id="btn_anterior" onclick="anterior()" disabled autocomplete="off">anterior</button>
 
+    <input type="text" placeholder="pesquisar por usuários ou postagens" id="ipt_pesquisa">
+    <button id="btn_pesquisa" onclick="pesquisar()">pesquisar</button>
+
 </body>
 
 </html>
 <script>
     window.onload = function () {
         buscarIdMax()
-        .then(() => {
-            adicionarDiscussoes(idMax);
-        })
-        .then(() => {
-            verificar10Postagens();
-        })
-        .catch((erro) => {
-            console.error("Erro ao buscar idMax:", erro);
-        });
+            .then(() => {
+                adicionarDiscussoes(idMax);
+            })
+            .then(() => {
+                verificar10Postagens();
+            })
+            .catch((erro) => {
+                console.error("Erro ao buscar idMax:", erro);
+            });
         obterDadosGraficoPersonagem()
         obterDadosGraficoQuiz()
         verificarLogin()
     }
 
+    function pesquisar() {
+        let pesquisa = ipt_pesquisa.value
+
+        let discussao = ''
+
+        if (pesquisa.length < 3) {
+            alert('digitar ao menos 3 caracteres')
+        }
+
+        else {
+
+            fetch(`/usuarios/pesquisarForum?pesquisa=${pesquisa}`, {
+                method: "GET",
+                cache: 'no-store',
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                            for (i = 0; i < resposta.length; i++) {
+                                discussao += `<div id="div_discussoes" class="discussoes">
+                            <div class="info">
+                <span class="usuario">${resposta[i].nome_usuario}</span>
+                <span class="data">${resposta[i].data_postagem} ${resposta[i].hora_postagem}</span>
+                </div>
+                <div class="discussao">${resposta[i].conteudo}</div>
+                    <button onclick="abrirComentarios(${resposta[i].id_postagem})">Comentários</button>
+                    </div>`
+                            }
+                            div_discussoes.innerHTML = discussao
+
+                        });
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+                document.getElementById('btn_proximo').disabled = true
+                document.getElementById('btn_anterior').disabled = true
+        }
+    }
+
     let idGlobal;
     let idMax;
 
-    function verificar10Postagens(){
-        if (idMax <= 10){
+    function verificar10Postagens() {
+        if (idMax <= 10) {
             document.getElementById('btn_proximo').disabled = true
         }
     }
-    
-    function proximo(){
+
+    function proximo() {
         idGlobal -= 10
         document.getElementById('btn_anterior').disabled = false
 
         adicionarDiscussoes(idGlobal)
 
-        if (idGlobal <= 10){
+        if (idGlobal <= 10) {
             document.getElementById('btn_proximo').disabled = true
         }
     }
 
-    function anterior(){
+    function anterior() {
         idGlobal += 10
         document.getElementById('btn_proximo').disabled = false
 
         adicionarDiscussoes(idGlobal)
 
-        if (idGlobal >= (idMax - 10)){
+        if (idGlobal >= (idMax - 10)) {
             document.getElementById('btn_anterior').disabled = true
         }
     }
@@ -126,7 +175,7 @@
         })
             .then(function (response) {
                 if (response.ok) {
-                   return response.json().then(function (resposta) {
+                    return response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
                         idGlobal = resposta[0].idMax

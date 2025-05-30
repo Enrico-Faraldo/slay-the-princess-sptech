@@ -253,6 +253,31 @@ function buscarIdMax(req, res) {
         );
 };
 
+function pesquisarForum(req, res) {
+    var pesquisa = req.query.pesquisa;
+
+    if (pesquisa == undefined) {
+        res.status(400).send("A pesquisa está undefined!");
+    } else {
+        usuarioModel.pesquisarForum(pesquisa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao buscar comentários! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
+};
+
 
 module.exports = {
     autenticar,
@@ -263,5 +288,6 @@ module.exports = {
     buscarComentarios,
     adicionarComentario,
     buscarComentarioPrincipal,
-    buscarIdMax
+    buscarIdMax,
+    pesquisarForum
 }

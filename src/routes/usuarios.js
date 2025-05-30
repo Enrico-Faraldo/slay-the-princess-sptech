@@ -40,4 +40,8 @@ router.get("/buscarIdMax", function (req, res) {
     usuarioController.buscarIdMax(req, res);
 });
 
+router.get("/pesquisarForum", function (req, res) {
+    usuarioController.pesquisarForum(req, res);
+});
+
 module.exports = router;

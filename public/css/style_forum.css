@@ -133,8 +133,8 @@ body {
     width: 20vw;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.486);
-    left: 69px;
-    top: 300px;
+    right: 69px;
+    top: 69vh;
 }
 
 .discussoes {
@@ -237,3 +237,19 @@ body {
   background-color: #cccccc;
   color: #666666;
 }*/
+
+#ipt_pesquisa{
+    height: 30px;
+    width: 220px;
+    position: fixed;
+    left: 150px;
+    top: 18vh;
+}
+
+#btn_pesquisa{
+    height: 30px;
+    width: 220px;
+    position: fixed;
+    left: 150px;
+    top: 36vh;
+}
