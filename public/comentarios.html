@@ -60,6 +60,9 @@
         <span class="usuario"></span><span class="data"></span>
     </div>
 
+    <input type="text" placeholder="pesquisar" id="ipt_pesquisa">
+    <button id="btn_pesquisa" onclick="pesquisar()">pesquisar</button>
+
 </body>
 
 </html>
@@ -71,6 +74,48 @@
         adicionarComentarios()
         verificarLogin()
         mostrarComentarioPrincipal()
+    }
+
+    function pesquisar() {
+        let pesquisa = ipt_pesquisa.value
+
+        let comentario = ''
+
+        if (pesquisa.length < 3) {
+            alert('digitar ao menos 3 caracteres')
+        }
+
+        else {
+
+            fetch(`/usuarios/pesquisarComentario?pesquisa=${pesquisa}`, {
+                method: "GET",
+                cache: 'no-store',
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                            for (i = 0; i < resposta.length; i++) {
+                                comentario += `<div id="div_comentarios" class="comentarios">
+                            <div class="info">
+                <span class="usuario">${resposta[i].nome_usuario}</span>
+                <span class="data">${resposta[i].data_comentario} ${resposta[i].hora_comentario}</span>
+                </div>
+                <div class="comentario">${resposta[i].conteudo}</div>
+                    </div>`
+                            }
+                            div_comentarios.innerHTML = comentario
+
+                        });
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
     }
     
      function adicionarComentarioNovo() {

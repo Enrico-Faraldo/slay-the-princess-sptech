@@ -257,20 +257,18 @@ body {
     font-size: 17px;
 }
 
-#btn_anterior{
-    height: 50px;
-    width: 90px;
+#ipt_pesquisa{
+    height: 30px;
+    width: 180px;
     position: fixed;
-    left: 100px;
-    top: 85vh;
-    z-index: 30;
+    left: 0;
+    top: 10vh;
 }
 
-#btn_proximo{
-    height: 50px;
-    width: 90px;
+#btn_pesquisa{
+    height: 30px;
+    width: 180px;
     position: fixed;
-    left: 200px;
-    top: 85vh;
-    z-index: 30;
+    left: 0;
+    top: 15vh;
 }

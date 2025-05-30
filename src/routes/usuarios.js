@@ -44,4 +44,8 @@ router.get("/pesquisarForum", function (req, res) {
     usuarioController.pesquisarForum(req, res);
 });
 
+router.get("/pesquisarComentario", function (req, res) {
+    usuarioController.pesquisarComentario(req, res);
+});
+
 module.exports = router;

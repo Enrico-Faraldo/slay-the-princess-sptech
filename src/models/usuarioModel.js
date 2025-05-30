@@ -144,6 +144,22 @@ function pesquisarForum(pesquisa) {
     return database.executar(instrucaoSql);
 }
 
+function pesquisarComentario(pesquisa) {
+
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+       SELECT c.conteudo, c.data_comentario data_completa, date_format(c.data_comentario, '%d/%m/%Y') data_comentario, time(c.data_comentario) hora_comentario,
+        u.nome_usuario, c.fkpostagem, c.id id_comentario
+        FROM comentario c
+        LEFT JOIN usuario u ON c.fkusuario = u.id
+        WHERE c.conteudo LIKE '%${pesquisa}%' OR nome_usuario LIKE '%${pesquisa}%'
+        ORDER BY data_completa DESC;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -155,5 +171,6 @@ module.exports = {
     adicionarComentario,
     buscarComentarioPrincipal,
     buscarIdMax,
-    pesquisarForum
+    pesquisarForum,
+    pesquisarComentario
 };
