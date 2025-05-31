@@ -60,8 +60,10 @@
         <span class="usuario"></span><span class="data"></span>
     </div>
 
-    <input type="text" placeholder="pesquisar" id="ipt_pesquisa">
-    <button id="btn_pesquisa" onclick="pesquisar()">pesquisar</button>
+    <div class="pesquisa">
+        <input type="text" placeholder="pesquisar usuários ou comentários" id="ipt_pesquisa">
+        <button id="btn_pesquisa" onclick="pesquisar()">pesquisar</button>
+    </div>
 
 </body>
 
@@ -69,7 +71,7 @@
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const idPostagem = urlParams.get('idPostagem');
-    
+
     window.onload = function () {
         adicionarComentarios()
         verificarLogin()
@@ -117,8 +119,8 @@
                 });
         }
     }
-    
-     function adicionarComentarioNovo() {
+
+    function adicionarComentarioNovo() {
 
         let conteudoVar = ipt_conteudo.value
         let fkusuarioVar = sessionStorage.ID_USUARIO
@@ -168,46 +170,46 @@
         return fetch(`/usuarios/buscarComentarios?idPostagem=${idPostagem}`, {
             method: "GET",
             cache: 'no-store'
-            })
-             .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                    for (i = 0; i < resposta.length; i++) {
-                        comentario += `<div id="div_comentarios" class="comentarios">
+                        for (i = 0; i < resposta.length; i++) {
+                            comentario += `<div id="div_comentarios" class="comentarios">
                             <div class="info">
                 <span class="usuario">${resposta[i].nome_usuario}</span>
                 <span class="data">${resposta[i].data_comentario} ${resposta[i].hora_comentario}</span>
                 </div>
                 <div class="comentario">${resposta[i].conteudo}</div>
                     </div>`
-                    }
-                    div_comentarios.innerHTML = comentario
+                        }
+                        div_comentarios.innerHTML = comentario
 
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
 
     function mostrarComentarioPrincipal() {
-        
 
-    fetch(`/usuarios/buscarComentarioPrincipal?idPostagem=${idPostagem}`, {
-        method: "GET",
-        cache: 'no-store'
-    })
-    .then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                div_comentario_principal.innerHTML += `
+        fetch(`/usuarios/buscarComentarioPrincipal?idPostagem=${idPostagem}`, {
+            method: "GET",
+            cache: 'no-store'
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        div_comentario_principal.innerHTML += `
                     <div id="div_comentario_principal" class="comentario_principal">
                         <div class="info">
                             <span class="usuario">${resposta[0].nome_usuario}</span>
@@ -215,15 +217,15 @@
                         </div>
                         <div class="comentario">${resposta[0].conteudo}</div>
                     </div>`;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
             });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados: ${error.message}`);
-    });
-}
+    }
 
 
 </script>

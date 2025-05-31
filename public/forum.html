@@ -64,11 +64,17 @@
         <canvas id="quiz"></canvas>
     </div>
 
-    <button id="btn_proximo" onclick="proximo()" autocomplete="off">próximo</button>
-    <button id="btn_anterior" onclick="anterior()" disabled autocomplete="off">anterior</button>
+    <div class="proximo_anterior">
+        <button id="btn_proximo" onclick="proximo()" autocomplete="off">próximo</button>
+        <button id="btn_anterior" onclick="anterior()" disabled autocomplete="off">anterior</button>
+    </div>
 
-    <input type="text" placeholder="pesquisar por usuários ou postagens" id="ipt_pesquisa">
-    <button id="btn_pesquisa" onclick="pesquisar()">pesquisar</button>
+    <div class="pesquisa">
+        <input type="text" placeholder="pesquisar por usuários ou postagens" id="ipt_pesquisa">
+        <button id="btn_pesquisa" onclick="pesquisar()">pesquisar</button>
+    </div>
+
+    <span id="titulo_grafico_personagem">Qual é o melhor personagem de Slay the Princess? Resposta dos usuários em porcentagem</span>
 
 </body>
 
@@ -131,8 +137,8 @@
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
 
-                document.getElementById('btn_proximo').disabled = true
-                document.getElementById('btn_anterior').disabled = true
+            document.getElementById('btn_proximo').disabled = true
+            document.getElementById('btn_anterior').disabled = true
         }
     }
 
@@ -459,7 +465,7 @@
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Porcentagem de acertos',
+                label: 'Porcentagem de acertos de cada questão do quiz',
                 data: [resposta[0].questao01, resposta[0].questao02, resposta[0].questao03],
                 backgroundColor: [
                     'rgb(75, 192, 192)',
@@ -470,6 +476,7 @@
         };
 
         let options = {
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     ticks: {
