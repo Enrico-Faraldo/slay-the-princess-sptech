@@ -14,9 +14,9 @@ function buscarMedidasPersonagens() {
 
 function buscarMedidasQuiz() {
 
-    var instrucaoSql = `SELECT (((SELECT COUNT(questao01) FROM quiz WHERE questao01 = 1) / (SELECT COUNT(questao01) FROM quiz)) * 100) as questao01,
-    (((SELECT COUNT(questao02) FROM quiz WHERE questao02 = 1) / (SELECT COUNT(questao02) FROM quiz)) * 100) as questao02,
-    (((SELECT COUNT(questao03) FROM quiz WHERE questao03 = 1) / (SELECT COUNT(questao03) FROM quiz)) * 100) as questao03;
+    var instrucaoSql = `SELECT ((SELECT COUNT(*) FROM quiz q INNER JOIN alternativas a ON a.id = q.fkalternativas WHERE q.fkquestoes = 1 AND a.certa = 1) / (SELECT COUNT(*) FROM quiz q WHERE q.fkquestoes = 1) * 100) questao01,
+((SELECT COUNT(*) FROM quiz q INNER JOIN alternativas a ON a.id = q.fkalternativas WHERE q.fkquestoes = 2 AND a.certa = 1) / (SELECT COUNT(*) FROM quiz q WHERE q.fkquestoes = 2) * 100) questao02, 
+((SELECT COUNT(*) FROM quiz q INNER JOIN alternativas a ON a.id = q.fkalternativas WHERE q.fkquestoes = 3 AND a.certa = 1) / (SELECT COUNT(*) FROM quiz q WHERE q.fkquestoes = 3) * 100) questao03; 
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
