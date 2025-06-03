@@ -2,79 +2,81 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slay the Princess Fanpage</title>
-    <link rel="stylesheet" href="./css/cadastro.css">
-    <link rel="icon" href="./assets/icone.png">
-    <script src="./js/sessao.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slay the Princess Fanpage</title>
+  <link rel="stylesheet" href="./css/cadastro.css">
+  <link rel="icon" href="./assets/icone.png">
+  <script src="./js/sessao.js"></script>
 
 </head>
 
 <body>
-    <div class="header">
-        <div class="container">
-            <div class="icone"></div>
-            <ul class="navbar">
-                <li>
-                    <a href="index.html">Início</a>
-                </li>
-                <li>
-                    <a href="#" onclick="acessarForum()">Fórum</a>
-                </li>
-                <li>
-                    <a href="#" onclick="acessarQuiz()">Quiz</a>
-                </li>
-                <li>
-                    <a>|</a>
-                </li>
-                <li id="li_login">
-                    <a href="login.html">Login</a>
-                </li>
-                <li id="li_cadastro" class="agora">
-                    <a href="cadastro.html">Cadastro</a>
-                </li>
-                <li id="li_sair" style="display: none;">
-                    <a href="#" onclick="sair()">Sair</a>
-                </li>
-            </ul>
-        </div>
+  <div class="header">
+    <div class="container">
+      <div class="icone"></div>
+      <ul class="navbar">
+        <li>
+          <a href="index.html">Início</a>
+        </li>
+        <li>
+          <a href="#" onclick="acessarForum()">Fórum</a>
+        </li>
+        <li>
+          <a href="#" onclick="acessarQuiz()">Quiz</a>
+        </li>
+        <li>
+          <a>|</a>
+        </li>
+        <li id="li_login">
+          <a href="login.html">Login</a>
+        </li>
+        <li id="li_cadastro" class="agora">
+          <a href="cadastro.html">Cadastro</a>
+        </li>
+        <li id="li_sair" style="display: none;">
+          <a href="#" onclick="sair()">Sair</a>
+        </li>
+      </ul>
     </div>
+  </div>
 
 
-    <div class="banner">
-        <div class="containerCadastro">
-            <div class="cadastro">Cadastre-se</div>
-            <div class="usuario">
-                <div class="indicador">Nome de usuário:</div>
-                <input type="text" id="ipt_nome_usuario">
-            </div>
-            <div class="e-mail">
-                <div class="indicador">E-mail:</div>
-                <input type="text" id="ipt_email">
-            </div>
-            <div class="senha">
-              <div class="indicador">Senha:</div>
-              <input type="password" id="ipt_senha">
-            </div>
-            <div class="senhaConfirmacao">
-              <div class="indicador">Confirme sua senha:</div>
-              <input type="password" id="ipt_senha_confirmacao">
-            </div>
-            <div class="personagemFavorito">
-                <div class="indicador">Personagem de Slay the Princess favorito:</div>
-                <select name="personagemFavorito" id="ipt_personagem_favorito" required>
-                  <option value="" disabled selected hidden>Selecione uma opção</option>
-                  <option value="princesa">Princesa</option>
-                  <option value="narrador">Narrador</option>
-                  <option value="protagonista">Protagonista</option>
-                  <option value="heroi">Voz do herói</option>
-                </select>
-            </div>
-            <button onclick="cadastrar()">Registrar</button>
-        </div>
+  <div class="banner">
+    <div class="containerCadastro">
+      <div class="cadastro">Cadastre-se</div>
+      <div class="usuario">
+        <div class="indicador">Nome de usuário:</div>
+        <input type="text" id="ipt_nome_usuario">
+      </div>
+      <div class="e-mail">
+        <div class="indicador">E-mail:</div>
+        <input type="text" id="ipt_email">
+      </div>
+      <div class="senha">
+        <div class="indicador">Senha:</div>
+        <input type="password" id="ipt_senha">
+      </div>
+      <div class="senhaConfirmacao">
+        <div class="indicador">Confirme sua senha:</div>
+        <input type="password" id="ipt_senha_confirmacao">
+      </div>
+      <div class="personagemFavorito">
+        <div class="indicador">Personagem de Slay the Princess favorito:</div>
+        <select name="personagemFavorito" id="ipt_personagem_favorito" required>
+          <option value="" disabled selected hidden>Selecione uma opção</option>
+          <option value="princesa">Princesa</option>
+          <option value="narrador">Narrador</option>
+          <option value="protagonista">Protagonista</option>
+          <option value="heroi">Voz do herói</option>
+        </select>
+      </div>
+      <button onclick="cadastrar()">Registrar</button>
     </div>
-    
+  </div>
+
+  <div id="div_erro" class="erro" style="display: none;"></div>
+
 </body>
 
 </html>
@@ -99,20 +101,32 @@
       confirmacaoSenhaVar == "" ||
       personagem_favoritoVar == ""
     ) {
-      alert('Campos vazios')
+      document.getElementById('div_erro').style.display = 'flex'
+      document.getElementById('div_erro').innerHTML = `Campos vazios`
+      setTimeout(() => {
+        document.getElementById('div_erro').style.display = 'none'
+      }, "2000");
 
       //finalizarAguardar();
       return false;
     }
 
-    else if (senhaVar != confirmacaoSenhaVar){
-      alert('Senhas não idênticas')
+    else if (senhaVar != confirmacaoSenhaVar) {
+      document.getElementById('div_erro').style.display = 'flex'
+      document.getElementById('div_erro').innerHTML = `Senhas não idênticas`
+      setTimeout(() => {
+        document.getElementById('div_erro').style.display = 'none'
+      }, "2000");
 
       return false;
     }
 
-    else if (nomeVar.length > 50){
-      alert('Nome de usuário muito longo!')
+    else if (nomeVar.length > 50) {
+      document.getElementById('div_erro').style.display = 'flex'
+      document.getElementById('div_erro').innerHTML = `nome de usuário acima de 50 caracteres`
+      setTimeout(() => {
+        document.getElementById('div_erro').style.display = 'none'
+      }, "2000");
 
       return false;
     }
@@ -139,7 +153,7 @@
           //cardErro.style.display = "block";
 
           //mensagem_erro.innerHTML =
-            //"Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          //"Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           setTimeout(() => {
             window.location = "login.html";
@@ -148,11 +162,19 @@
           limparFormulario();
           //finalizarAguardar();
         } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
+          return resposta.text().then(function (mensagemErro) {
+            throw new Error(mensagemErro);
+          });
         }
       })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+      .catch(function (erro) {
+        console.error(`#ERRO: ${erro.message}`);
+        document.getElementById('div_erro').style.display = 'flex'
+        document.getElementById('div_erro').innerHTML = `${erro.message}`
+
+        setTimeout(() => {
+        document.getElementById('div_erro').style.display = 'none'
+      }, "2000");
         //finalizarAguardar();
       });
 

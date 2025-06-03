@@ -165,3 +165,20 @@ body {
     color: white;
     border-radius: 7px;
 }
+
+.erro{
+    height: 17vh;
+    width: 20vw;
+    background-color: black;
+    color: white;
+    position: absolute;
+    right: 2vw;
+    top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    font-family: 'Titan-One';
+    font-size: 28px;
+}

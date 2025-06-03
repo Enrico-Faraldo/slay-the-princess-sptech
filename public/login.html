@@ -58,6 +58,8 @@
         </div>
     </div>
 
+    <div id="div_erro" class="erro" style="display: none;"></div>
+
 </body>
 
 </html>
@@ -72,7 +74,11 @@
         var senhaVar = ipt_senha.value;
 
         if (emailVar == "" || senhaVar == "") {
-            alert('Campos vazios')
+            document.getElementById('div_erro').style.display = 'flex'
+            document.getElementById('div_erro').innerHTML = `Campos vazios`
+            setTimeout(() => {
+                document.getElementById('div_erro').style.display = 'none'
+            }, "2000");
             return false;
         }
 
@@ -114,23 +120,35 @@
                     }, 1000); // apenas para exibir o loading
 
                 });
-                
 
-    } else {
 
-        console.log("Houve um erro ao tentar realizar o login!");
+            } else {
 
-        resposta.text().then(texto => {
-            console.error(texto);
-            //finalizarAguardar(texto);
+                console.log("Houve um erro ao tentar realizar o login!");
+                //alert('Credenciais incorretas')
+
+                return resposta.text().then(function (mensagemErro) {
+                    throw new Error(mensagemErro);
+                });
+
+                /* resposta.text().then(texto => {
+                    console.error(texto);
+                    //finalizarAguardar(texto);
+                }); */
+            }
+
+        }).catch(function (erro) {
+            console.error(`#ERRO: ${erro.message}`);
+            document.getElementById('div_erro').style.display = 'flex'
+            document.getElementById('div_erro').innerHTML = `${erro.message}`
+
+            setTimeout(() => {
+                document.getElementById('div_erro').style.display = 'none'
+            }, "2000");
+            //finalizarAguardar();
         });
-    }
 
-        }).catch (function (erro) {
-        console.log(erro);
-    })
-
-    return false;
+        return false;
     }
 
     /*function sumirMensagem() {
