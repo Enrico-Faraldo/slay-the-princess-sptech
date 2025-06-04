@@ -80,6 +80,10 @@
 
 </html>
 <script>
+
+    let idGlobal;
+    let idMax;
+    
     window.onload = function () {
         buscarIdMax()
             .then(() => {
@@ -91,10 +95,11 @@
             .catch((erro) => {
                 console.error("Erro ao buscar idMax:", erro);
             });
-        obterDadosGraficoPersonagem()
-        obterDadosGraficoQuiz()
-        verificarLogin()
-    }
+            obterDadosGraficoPersonagem()
+            obterDadosGraficoQuiz()
+            verificarLogin()
+        }
+        
 
     function pesquisar() {
         let pesquisa = ipt_pesquisa.value
@@ -142,8 +147,6 @@
         }
     }
 
-    let idGlobal;
-    let idMax;
 
     function verificar10Postagens() {
         if (idMax <= 10) {
